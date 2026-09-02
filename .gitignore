@@ -1,3 +1,11 @@
+# Custom stuff ignored by me
+requirements
+AGENTS.md
+.docs
+.agents
+.claude
+.cursor
+.devin
 # Logs
 logs
 *.log
@@ -141,3 +149,4 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+dist/
