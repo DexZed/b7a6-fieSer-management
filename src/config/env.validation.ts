@@ -21,7 +21,7 @@ class EnvironmentVariables {
   @IsOptional()
   @IsEnum(Environment)
   NODE_ENV: Environment;
-
+  @IsOptional()
   @IsNumber()
   @Min(0)
   @Max(65535)
