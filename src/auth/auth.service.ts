@@ -1,9 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreateAuthDto, Role, SignInDto } from './dto/create-auth.dto.js';
+import { CreateAuthDto } from './dto/create-auth.dto.js';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { db } from '../prisma/db.js';
 import { comparePassword, hashPassword } from '../utils/crypto.js';
+import { checkRecordExistence, saveRecord } from '../utils/genericQuery.js';
+import { Role } from '../common/enums/enums.js';
 
 export interface TokenPayload {
   id: number;
@@ -56,7 +58,7 @@ export class AuthService {
     };
   }
 
-  async validateUser(userInfo: SignInDto): Promise<any> {
+  async validateUser(email: string, pass: string): Promise<any> {
     const user = await db.orm.public.User.select(
       'id',
       'email',
@@ -64,23 +66,25 @@ export class AuthService {
       'role',
       'passwordHash',
     )
-      .where({ email: userInfo.email })
+      .where({ email })
       .first();
 
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
 
-    const isMatch = await comparePassword(userInfo.password, user.passwordHash);
+    const isMatch = await comparePassword(pass, user.passwordHash);
     if (!isMatch) {
-      return null;
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const { passwordHash, ...safeUser } = user;
     return safeUser;
   }
 
-  async generateTokens(user: { id: number; email: string; role: string }): Promise<AuthTokens> {
+  async generateTokens(user: {
+    id: number;
+    email: string;
+    role: string;
+  }): Promise<AuthTokens> {
     const payload: TokenPayload = {
       id: user.id,
       email: user.email,
@@ -114,7 +118,9 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(refreshTokenString: string): Promise<AuthTokens & { user: any }> {
+  async refreshTokens(
+    refreshTokenString: string,
+  ): Promise<AuthTokens & { user: any }> {
     if (!refreshTokenString) {
       throw new UnauthorizedException('Refresh token is required');
     }
@@ -152,6 +158,44 @@ export class AuthService {
     return {
       ...tokens,
       user,
+    };
+  }
+
+  async validateGoogleUser(googleProfile: {
+    email: string;
+    fullName: string;
+  }): Promise<any> {
+    const { email, fullName } = googleProfile;
+
+    const checkUser = await checkRecordExistence(
+      'User',
+      ['id', 'email', 'fullName', 'role'],
+      { email },
+    );
+    let user;
+    if (!checkUser) {
+      user = await saveRecord('User', {
+        email,
+        fullName: fullName || 'Google User',
+        role: Role.CUSTOMER,
+      });
+    }
+
+    return user;
+  }
+
+  async handleOAuthLogin(googleUser: { email: string; fullName: string }) {
+    const user = await this.validateGoogleUser(googleUser);
+    const tokens = await this.generateTokens(user);
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        role: user.role,
+      },
+      tokens,
     };
   }
 }

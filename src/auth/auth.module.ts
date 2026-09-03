@@ -10,8 +10,9 @@ import { GoogleOauthStrategy } from './strategy/goauth.strategy.js';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
-      imports: [ConfigModule, PassportModule],
+      imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
         return {
           secret: configService?.get<string>('JWT_SECRET'),
@@ -22,5 +23,6 @@ import { GoogleOauthStrategy } from './strategy/goauth.strategy.js';
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, GoogleOauthStrategy],
+  exports: [AuthService, JwtModule, PassportModule],
 })
 export class AuthModule {}

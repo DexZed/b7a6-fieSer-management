@@ -16,8 +16,9 @@ import type {
   Request as ExpressRequest,
   Response as ExpressResponse,
 } from 'express';
-import { RoleGuard } from '../guard/role.guard.js';
-import { Roles } from '../guard/roles.decorator.js';
+
+import { GoogleAuthGuard } from './guards/goauth.guard.js';
+import { RoleGuard } from '../common/guard/role.guard.js';
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
@@ -122,13 +123,29 @@ export class AuthController {
     };
   }
 
-  @Post('google/login')
-  googleLogin() {
-    // return this.authService.googleLogin();
-  }
+  // Google OAuth routes
+  @UseGuards(GoogleAuthGuard)
+  @Get('google/login')
+  googleLogin() {}
 
-  @Post('google/redirect')
-  googleRedirect() {
-    // return this.authService.googleRedirect();
+  @UseGuards(GoogleAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('google/redirect')
+  async googleRedirect(
+    @Request() req: ExpressRequest & { user: any },
+    @Response({ passthrough: true }) res: ExpressResponse,
+  ) {
+    const { user, tokens } = await this.authService.handleOAuthLogin(req.user);
+
+    res.cookie('refresh_token', tokens.refreshToken, {
+      ...COOKIE_OPTIONS,
+      maxAge: REFRESH_COOKIE_MAX_AGE,
+    });
+
+    return {
+      message: 'Google login successful',
+      accessToken: tokens.accessToken,
+      user,
+    };
   }
 }

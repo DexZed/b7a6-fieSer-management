@@ -6,14 +6,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-
-export enum Role {
-  CUSTOMER = 'CUSTOMER',
-  TECHNICIAN = 'TECHNICIAN',
-  DISPATCHER = 'DISPATCHER',
-  FINANCE = 'FINANCE',
-  ADMIN = 'ADMIN',
-}
+import { Role } from '../../common/enums/enums.js';
 
 export class CreateAuthDto {
   @IsString()

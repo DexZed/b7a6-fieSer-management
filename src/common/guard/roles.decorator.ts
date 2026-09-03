@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
-import { Role } from '../auth/dto/create-auth.dto.js';
+import { Role } from '../enums/enums';
 
 export const ROLES_KEY = 'roles';
 export const Roles = (...roles: (Role | keyof typeof Role)[]) =>
