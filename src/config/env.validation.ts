@@ -35,6 +35,10 @@ class EnvironmentVariables {
   @IsString()
   JWT_SECRET: string;
 
+  @IsString()
+  @IsOptional()
+  JWT_REFRESH_SECRET: string;
+
   // Stripe Secrets
   @IsString()
   @IsOptional()

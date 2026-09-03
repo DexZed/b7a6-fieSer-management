@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -16,20 +17,28 @@ export enum Role {
 
 export class CreateAuthDto {
   @IsString()
-  @IsNotEmpty()
-  name: string;
+  @IsOptional()
+  fullName?: string;
+
+  @IsString()
+  @IsOptional()
+  name?: string;
+
   @IsString()
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
   password: string;
+
+  @IsOptional()
   @IsEnum(Role, {
     message: `Roles must be one of ${Object.values(Role).join(', ')}`,
   })
-  role?: string;
+  role?: Role;
 }
 
 export class SignInDto {
