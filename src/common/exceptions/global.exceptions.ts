@@ -13,18 +13,32 @@ export class CatchEverythingFilter implements ExceptionFilter {
   constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
   catch(exception: unknown, host: ArgumentsHost): void {
-    // In certain situations `httpAdapter` might not be available in the
-    // constructor method, thus we should resolve it here.
     const { httpAdapter } = this.httpAdapterHost;
     let httpStatus;
     let message;
     const ctx = host.switchToHttp();
-
+    const request = ctx.getRequest();
+    console.log('--- Incoming Payload Causing Error ---', request.body);
     if (exception instanceof HttpException) {
       httpStatus = exception.getStatus();
+      const exceptionResponse = exception.getResponse();
+
+      // Extracts detailed validation errors if provided by ValidationPipe
       message = {
         type: 'HttpException',
-        error: exception.message,
+        error:
+          typeof exceptionResponse === 'object' &&
+          exceptionResponse !== null &&
+          'error' in exceptionResponse
+            ? (exceptionResponse as any).error
+            : exception.message,
+        details:
+          typeof exceptionResponse === 'object' &&
+          exceptionResponse !== null &&
+          'message' in exceptionResponse
+            ? (exceptionResponse as any).message
+            : exception.message,
+        cause: exception.cause,
       };
     } else if (exception instanceof Error) {
       httpStatus = HttpStatus.BAD_REQUEST;
@@ -52,8 +66,16 @@ export class CatchEverythingFilter implements ExceptionFilter {
       message,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
+      stack_trace: getStackTrace(exception),
     };
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
   }
+}
+
+function getStackTrace(exception: unknown): string | undefined {
+  if (exception instanceof Error) {
+    return exception.stack;
+  }
+  return String(exception);
 }

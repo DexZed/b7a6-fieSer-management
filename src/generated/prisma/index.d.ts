@@ -9863,6 +9863,7 @@ export namespace Prisma {
     updatedAt: Date | null
     role: $Enums.Role | null
     isActive: boolean | null
+    status: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -9875,6 +9876,7 @@ export namespace Prisma {
     updatedAt: Date | null
     role: $Enums.Role | null
     isActive: boolean | null
+    status: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -9887,6 +9889,7 @@ export namespace Prisma {
     updatedAt: number
     role: number
     isActive: number
+    status: number
     _all: number
   }
 
@@ -9901,6 +9904,7 @@ export namespace Prisma {
     updatedAt?: true
     role?: true
     isActive?: true
+    status?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -9913,6 +9917,7 @@ export namespace Prisma {
     updatedAt?: true
     role?: true
     isActive?: true
+    status?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -9925,6 +9930,7 @@ export namespace Prisma {
     updatedAt?: true
     role?: true
     isActive?: true
+    status?: true
     _all?: true
   }
 
@@ -10010,6 +10016,7 @@ export namespace Prisma {
     updatedAt: Date
     role: $Enums.Role
     isActive: boolean
+    status: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -10039,6 +10046,7 @@ export namespace Prisma {
     updatedAt?: boolean
     role?: boolean
     isActive?: boolean
+    status?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     skills?: boolean | User$skillsArgs<ExtArgs>
@@ -10058,6 +10066,7 @@ export namespace Prisma {
     updatedAt?: boolean
     role?: boolean
     isActive?: boolean
+    status?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10070,6 +10079,7 @@ export namespace Prisma {
     updatedAt?: boolean
     role?: boolean
     isActive?: boolean
+    status?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -10082,9 +10092,10 @@ export namespace Prisma {
     updatedAt?: boolean
     role?: boolean
     isActive?: boolean
+    status?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "isActive", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "isActive" | "status", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -10117,6 +10128,7 @@ export namespace Prisma {
       updatedAt: Date
       role: $Enums.Role
       isActive: boolean
+      status: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -10555,6 +10567,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly role: FieldRef<"User", 'Role'>
     readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly status: FieldRef<"User", 'String'>
   }
     
 
@@ -14505,7 +14518,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     role: 'role',
-    isActive: 'isActive'
+    isActive: 'isActive',
+    status: 'status'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -15156,6 +15170,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isActive?: BoolFilter<"User"> | boolean
+    status?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     skills?: TechnicianSkillListRelationFilter
@@ -15174,6 +15189,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    status?: SortOrderInput | SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     skills?: TechnicianSkillOrderByRelationAggregateInput
@@ -15195,6 +15211,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isActive?: BoolFilter<"User"> | boolean
+    status?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     skills?: TechnicianSkillListRelationFilter
@@ -15213,6 +15230,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    status?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -15231,6 +15249,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
+    status?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -15857,6 +15876,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -15875,6 +15895,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -15893,6 +15914,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -15911,6 +15933,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -15929,6 +15952,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -15941,6 +15965,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -15953,6 +15978,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -16778,6 +16804,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    status?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -16790,6 +16817,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    status?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -16802,6 +16830,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    status?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -17922,6 +17951,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     customerServiceRequests?: ServiceRequestCreateNestedManyWithoutCustomerInput
@@ -17939,6 +17969,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     customerServiceRequests?: ServiceRequestUncheckedCreateNestedManyWithoutCustomerInput
@@ -17986,6 +18017,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     customerServiceRequests?: ServiceRequestUpdateManyWithoutCustomerNestedInput
@@ -18003,6 +18035,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     customerServiceRequests?: ServiceRequestUncheckedUpdateManyWithoutCustomerNestedInput
@@ -18040,6 +18073,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -18057,6 +18091,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -18120,6 +18155,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -18137,6 +18173,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -18214,6 +18251,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -18231,6 +18269,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -18253,6 +18292,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -18270,6 +18310,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -18371,6 +18412,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -18388,6 +18430,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -18416,6 +18459,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -18433,6 +18477,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -19075,6 +19120,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestCreateNestedManyWithoutCustomerInput
@@ -19092,6 +19138,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestUncheckedCreateNestedManyWithoutCustomerInput
@@ -19125,6 +19172,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUpdateManyWithoutCustomerNestedInput
@@ -19142,6 +19190,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUncheckedUpdateManyWithoutCustomerNestedInput
@@ -19159,6 +19208,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestCreateNestedManyWithoutCustomerInput
@@ -19176,6 +19226,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     role?: $Enums.Role
     isActive?: boolean
+    status?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestUncheckedCreateNestedManyWithoutCustomerInput
@@ -19209,6 +19260,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUpdateManyWithoutCustomerNestedInput
@@ -19226,6 +19278,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUncheckedUpdateManyWithoutCustomerNestedInput

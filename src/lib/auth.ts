@@ -17,14 +17,14 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       role: {
-        type: ['admin', 'customer', 'technician', 'dispatcher', 'finance'],
+        type: ['ADMIN', 'CUSTOMER', 'TECHNICIAN', 'DISPATCHER'],
         required: true,
-        defaultValue: 'customer',
+        defaultValue: 'CUSTOMER',
       },
       status: {
-        type: ['active', 'banned'],
+        type: ['ACTIVE', 'BANNED'],
         required: false,
-        defaultValue: 'active',
+        defaultValue: 'ACTIVE',
       },
     },
   },

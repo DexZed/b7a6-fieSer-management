@@ -13,6 +13,7 @@ datasource db {
 }
 
 // User, Session, Account, Verification managed by Better Auth
+
 model User {
   id            String    @id
   name          String
@@ -33,6 +34,8 @@ model User {
   customerServiceRequests ServiceRequest[]  @relation("CustomerRequests")
   assignedWorkOrders      WorkOrder[]       @relation("AssignedTechnician")
   dispatchedWorkOrders    WorkOrder[]       @relation("DispatchedBy")
+
+  status String? @default("ACTIVE")
 
   @@map("user")
 }

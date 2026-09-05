@@ -185,7 +185,8 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   role: 'role',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  status: 'status'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {

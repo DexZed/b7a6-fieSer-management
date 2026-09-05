@@ -2,6 +2,25 @@ export enum Role {
   CUSTOMER = 'CUSTOMER',
   TECHNICIAN = 'TECHNICIAN',
   DISPATCHER = 'DISPATCHER',
-  FINANCE = 'FINANCE',
   ADMIN = 'ADMIN',
+}
+
+export enum RequestStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum WorkOrderStatus {
+  ASSIGNED = 'ASSIGNED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum InvoiceStatus {
+  UNPAID = 'UNPAID',
+  PAID = 'PAID',
+  CANCELLED = 'CANCELLED',
 }

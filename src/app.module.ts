@@ -9,6 +9,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config/env.validation.js';
+import { CustomerModule } from './customer/customer.module.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 @Module({
@@ -25,6 +26,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       isGlobal: true,
       validate,
     }),
+    CustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
