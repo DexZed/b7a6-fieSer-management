@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Service Management System (FSMS) — Requirements Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                            600: '#475569',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-dark-900 text-slate-100 font-sans antialiased min-h-screen selection:bg-cyan-500 selection:text-white">
+
+    <div class="max-w-6xl mx-auto px-4 py-12 lg:py-16">
+
+        <header class="mb-12 border-b border-dark-700 pb-8">
+            <div class="flex items-center space-x-3 mb-4">
+                <span
+                    class="px-3.5 py-1 text-xs font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full">Requirements
+                    Spec</span>
+                <span
+                    class="px-3.5 py-1 text-xs font-semibold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-full">Dark
+                    Theme</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
+                Field Service Management System <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">(FSMS)</span>
+            </h1>
+            <p class="text-lg text-slate-400">Comprehensive functional and technical requirements document for design,
+                development, and delivery.</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <section id="executive-summary"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">01.</span> Executive Summary & Project Overview
+                </h2>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-rose-400 mb-3">Core Problem</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Small-to-medium field service businesses (e.g., HVAC repair, appliance maintenance, plumbing
+                            services) often rely on fragmented communication methods like phone calls, messaging apps,
+                            and spreadsheets. This leads to common operational issues:
+                        </p>
+                        <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <li class="bg-dark-900/80 border border-dark-700 p-4 rounded-xl">
+                                <strong class="block text-rose-300 font-semibold mb-1">Scheduling Conflicts</strong>
+                                <span class="text-sm text-slate-400">Double-booking technicians or assigning jobs
+                                    without considering technician availability.</span>
+                            </li>
+                            <li class="bg-dark-900/80 border border-dark-700 p-4 rounded-xl">
+                                <strong class="block text-rose-300 font-semibold mb-1">Unclear Status Tracking</strong>
+                                <span class="text-sm text-slate-400">Customers and dispatchers lack visibility into job
+                                    progress once a technician departs.</span>
+                            </li>
+                            <li class="bg-dark-900/80 border border-dark-700 p-4 rounded-xl">
+                                <strong class="block text-rose-300 font-semibold mb-1">Manual Billing Friction</strong>
+                                <span class="text-sm text-slate-400">Delays between completing service on-site and
+                                    generating an accurate customer invoice.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr class="border-dark-700 my-6">
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-emerald-400 mb-3">Solution</h3>
+                        <p class="text-slate-300 leading-relaxed">
+                            A centralized web application that automates the lifecycle of a service job—from initial
+                            request submission to technician scheduling, work order updates, invoice processing, and
+                            customer feedback.
+                        </p>
+                    </div>
+
+                    <hr class="border-dark-700 my-6">
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-amber-400 mb-3">Scope & Constraints (5-Day Student/Hobby
+                            Scope)</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            <li class="flex items-center"><span
+                                    class="w-2 h-2 bg-amber-400 rounded-full mr-3"></span><strong>Timeframe:</strong>
+                                5-day build.</li>
+                            <li class="flex items-center"><span
+                                    class="w-2 h-2 bg-amber-400 rounded-full mr-3"></span><strong>Architecture
+                                    Strategy:</strong> Single monolithic application (Node.js/Express, NestJS,
+                                Python/FastAPI, or Ruby on Rails) coupled with a relational database (PostgreSQL/MySQL).
+                            </li>
+                            <li class="flex items-center"><span
+                                    class="w-2 h-2 bg-rose-400 rounded-full mr-3"></span><strong>Out of Scope:</strong>
+                                Real-time GPS/map tracking, complex routing algorithms, multi-currency support,
+                                offline-first mobile sync, payment gateway integration APIs (mock payments used
+                                instead).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="users-and-roles"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">02.</span> Users & Roles
+                </h2>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="border-b border-dark-700 text-slate-400 uppercase tracking-wider text-xs bg-dark-900/50">
+                                <th class="p-4 font-semibold">Role</th>
+                                <th class="p-4 font-semibold">Primary Responsibilities</th>
+                                <th class="p-4 font-semibold">Scope & Permissions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-dark-700 text-sm text-slate-300">
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-bold text-cyan-400">Customer</td>
+                                <td class="p-4">Submits service requests, views work order status, approves invoices,
+                                    submits feedback.</td>
+                                <td class="p-4 text-slate-400">Own profile, own service requests, own invoices.</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-bold text-indigo-400">Dispatcher / Manager</td>
+                                <td class="p-4">Reviews requests, manages technician availability, assigns jobs,
+                                    overrides schedules.</td>
+                                <td class="p-4 text-slate-400">Full access to Work Orders, Scheduling, and Customers.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-bold text-emerald-400">Technician</td>
+                                <td class="p-4">Views assigned daily schedule, updates work order status (Started,
+                                    Completed), adds service notes.</td>
+                                <td class="p-4 text-slate-400">Assigned Work Orders, limited profile/skill editing.</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-bold text-amber-400">Finance / Admin</td>
+                                <td class="p-4">Manages job invoicing, marks payments received, views financial reports.
+                                </td>
+                                <td class="p-4 text-slate-400">Access to Invoices, Payments, and Financial Analytics.
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-bold text-rose-400">Admin</td>
+                                <td class="p-4">System configuration, user account management, master reference data.
+                                </td>
+                                <td class="p-4 text-slate-400">Unrestricted global access.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="main-workflows"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">03.</span> Main Workflows
+                </h2>
+
+                <h3 class="text-xl font-semibold text-slate-200 mb-4">3.1 Service Request to Work Order Lifecycle</h3>
+
+                <div
+                    class="bg-dark-900 border border-dark-700 p-4 sm:p-6 rounded-xl font-mono text-xs sm:text-sm text-cyan-300 overflow-x-auto mb-6 shadow-inner">
+                    <pre> Customer            Dispatcher          Technician          Finance
+    │                   │                   │                   │
+    ├── Create Request ──>                  │                   │
+    │   (Status: PENDING)                   │                   │
+    │                   ├── Review & Approve ──>                │
+    │                   │   Assign Tech/Time  │                 │
+    │                   │   (Status: ASSIGNED)│                 │
+    │                   │                   ├── Update: IN_PROGRESS
+    │                   │                   │   Add notes/parts │
+    │                   │                   ├── Update: COMPLETED
+    │                   │                   │   (Generates Invoice)
+    │                   │                   │                   ├── Process Payment
+    │                   │                   │                   │   (Status: PAID)
+    ├── Leave Review ────>                  │                   │</pre>
+                </div>
+
+                <ol class="list-decimal list-inside space-y-3 text-slate-300">
+                    <li class="leading-relaxed"><strong>Request Submission:</strong> Customer creates a <code
+                            class="bg-dark-900 text-cyan-300 px-2 py-0.5 rounded text-xs font-mono">Service Request</code>
+                        with job location, description, and preferred time frame.</li>
+                    <li class="leading-relaxed"><strong>Review & Scheduling:</strong> Dispatcher reviews the request,
+                        converts it to a <code
+                            class="bg-dark-900 text-cyan-300 px-2 py-0.5 rounded text-xs font-mono">Work Order</code>,
+                        selects a Technician based on skill, checks for schedule conflicts, and sets a scheduled
+                        start/end time.</li>
+                    <li class="leading-relaxed"><strong>Execution:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-2 space-y-1 text-slate-400">
+                            <li>Technician views their schedule.</li>
+                            <li>Upon arriving on-site, Technician changes status to <code
+                                    class="bg-dark-900 text-amber-300 px-2 py-0.5 rounded text-xs font-mono">IN_PROGRESS</code>.
+                            </li>
+                            <li>Upon job completion, Technician updates status to <code
+                                    class="bg-dark-900 text-emerald-300 px-2 py-0.5 rounded text-xs font-mono">COMPLETED</code>
+                                and enters resolution notes and billable items.</li>
+                        </ul>
+                    </li>
+                    <li class="leading-relaxed"><strong>Invoicing & Payment:</strong> System generates an <code
+                            class="bg-dark-900 text-cyan-300 px-2 py-0.5 rounded text-xs font-mono">Invoice</code>
+                        linked to the completed Work Order. Customer or Finance processes payment (mocked transaction).
+                    </li>
+                    <li class="leading-relaxed"><strong>Feedback:</strong> Customer fills out a post-service rating and
+                        review.</li>
+                </ol>
+            </section>
+
+            <section id="database-entities"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">04.</span> Database Entities & Relationships
+                </h2>
+
+                <h3 class="text-xl font-semibold text-slate-200 mb-3">Entity Relationship Description</h3>
+                <ul class="list-disc list-inside space-y-2 text-slate-300 mb-6">
+                    <li><code class="text-cyan-300 font-mono">User</code> <strong>1 : N</strong> <code
+                            class="text-cyan-300 font-mono">ServiceRequest</code> (A customer can make multiple
+                        requests).</li>
+                    <li><code class="text-cyan-300 font-mono">User</code> <strong>1 : N</strong> <code
+                            class="text-cyan-300 font-mono">WorkOrder</code> (A technician can be assigned to multiple
+                        work orders).</li>
+                    <li><code class="text-cyan-300 font-mono">WorkOrder</code> <strong>1 : 1</strong> <code
+                            class="text-cyan-300 font-mono">ServiceRequest</code> (Each approved request creates one
+                        work order).</li>
+                    <li><code class="text-cyan-300 font-mono">WorkOrder</code> <strong>1 : 1</strong> <code
+                            class="text-cyan-300 font-mono">Invoice</code> (Each work order produces one invoice).</li>
+                    <li><code class="text-cyan-300 font-mono">WorkOrder</code> <strong>1 : 1</strong> <code
+                            class="text-cyan-300 font-mono">Feedback</code> (Each completed work order can have one
+                        review).</li>
+                    <li><code class="text-cyan-300 font-mono">User</code> <strong>M : N</strong> <code
+                            class="text-cyan-300 font-mono">Skill</code> (Technicians can have multiple skills; handled
+                        via <code class="text-cyan-300 font-mono">TechnicianSkill</code>).</li>
+                </ul>
+
+                <div
+                    class="bg-dark-900 border border-dark-700 p-4 sm:p-6 rounded-xl font-mono text-xs sm:text-sm text-emerald-400 overflow-x-auto mb-6 shadow-inner">
+                    <pre>[User] 1 ──── N [ServiceRequest] 1 ──── 1 [WorkOrder] 1 ──── 1 [Invoice]
+ │                                          │                 │
+ │ (Tech)                                   │                 │
+ └─────── N ────────────────────────────────┘                 1
+                                                              │
+                                                         [Payment]</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold text-slate-200 mb-3">Schema Draft</h3>
+                <div
+                    class="bg-dark-900 border border-dark-700 p-4 sm:p-6 rounded-xl font-mono text-xs text-slate-300 overflow-x-auto shadow-inner">
+                    <pre class="text-purple-300">-- Core Users Table</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> users (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    email <span class="text-amber-400">VARCHAR(255) UNIQUE NOT NULL</span>,
+    password_hash <span class="text-amber-400">VARCHAR(255) NOT NULL</span>,
+    full_name <span class="text-amber-400">VARCHAR(100) NOT NULL</span>,
+    role <span class="text-amber-400">VARCHAR(20) NOT NULL CHECK</span> (role <span class="text-blue-400">IN</span> (<span class="text-emerald-300">'CUSTOMER'</span>, <span class="text-emerald-300">'TECHNICIAN'</span>, <span class="text-emerald-300">'DISPATCHER'</span>, <span class="text-emerald-300">'FINANCE'</span>, <span class="text-emerald-300">'ADMIN'</span>)),
+    created_at <span class="text-amber-400">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Skills Reference Data</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> skills (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    name <span class="text-amber-400">VARCHAR(50) UNIQUE NOT NULL</span>
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Join table for Technician Skills</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> technician_skills (
+    technician_id <span class="text-amber-400">INT REFERENCES</span> users(id) <span class="text-blue-400">ON DELETE CASCADE</span>,
+    skill_id <span class="text-amber-400">INT REFERENCES</span> skills(id) <span class="text-blue-400">ON DELETE CASCADE</span>,
+    <span class="text-blue-400">PRIMARY KEY</span> (technician_id, skill_id)
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Service Requests submitted by Customers</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> service_requests (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    customer_id <span class="text-amber-400">INT REFERENCES</span> users(id),
+    title <span class="text-amber-400">VARCHAR(150) NOT NULL</span>,
+    description <span class="text-amber-400">TEXT NOT NULL</span>,
+    address <span class="text-amber-400">VARCHAR(255) NOT NULL</span>,
+    status <span class="text-amber-400">VARCHAR(20) DEFAULT</span> <span class="text-emerald-300">'PENDING'</span> <span class="text-blue-400">CHECK</span> (status <span class="text-blue-400">IN</span> (<span class="text-emerald-300">'PENDING'</span>, <span class="text-emerald-300">'APPROVED'</span>, <span class="text-emerald-300">'REJECTED'</span>, <span class="text-emerald-300">'CANCELLED'</span>)),
+    created_at <span class="text-amber-400">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Work Orders generated after dispatcher review</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> work_orders (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    request_id <span class="text-amber-400">INT UNIQUE REFERENCES</span> service_requests(id),
+    technician_id <span class="text-amber-400">INT REFERENCES</span> users(id),
+    dispatcher_id <span class="text-amber-400">INT REFERENCES</span> users(id),
+    status <span class="text-amber-400">VARCHAR(20) DEFAULT</span> <span class="text-emerald-300">'ASSIGNED'</span> <span class="text-blue-400">CHECK</span> (status <span class="text-blue-400">IN</span> (<span class="text-emerald-300">'ASSIGNED'</span>, <span class="text-emerald-300">'IN_PROGRESS'</span>, <span class="text-emerald-300">'COMPLETED'</span>, <span class="text-emerald-300">'CANCELLED'</span>)),
+    scheduled_start <span class="text-amber-400">TIMESTAMP NOT NULL</span>,
+    scheduled_end <span class="text-amber-400">TIMESTAMP NOT NULL</span>,
+    completion_notes <span class="text-amber-400">TEXT</span>,
+    created_at <span class="text-amber-400">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Invoices linked to Work Orders</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> invoices (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    work_order_id <span class="text-amber-400">INT UNIQUE REFERENCES</span> work_orders(id),
+    amount <span class="text-amber-400">DECIMAL(10, 2) NOT NULL</span>,
+    status <span class="text-amber-400">VARCHAR(20) DEFAULT</span> <span class="text-emerald-300">'UNPAID'</span> <span class="text-blue-400">CHECK</span> (status <span class="text-blue-400">IN</span> (<span class="text-emerald-300">'UNPAID'</span>, <span class="text-emerald-300">'PAID'</span>, <span class="text-emerald-300">'CANCELLED'</span>)),
+    created_at <span class="text-amber-400">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Payments</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> payments (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    invoice_id <span class="text-amber-400">INT REFERENCES</span> invoices(id),
+    amount_paid <span class="text-amber-400">DECIMAL(10, 2) NOT NULL</span>,
+    payment_method <span class="text-amber-400">VARCHAR(50) DEFAULT</span> <span class="text-emerald-300">'CREDIT_CARD'</span>,
+    paid_at <span class="text-amber-400">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</pre>
+                    <br>
+                    <pre class="text-purple-300">-- Customer Feedback</pre>
+                    <pre><span class="text-blue-400">CREATE TABLE</span> feedback (
+    id <span class="text-amber-400">SERIAL PRIMARY KEY</span>,
+    work_order_id <span class="text-amber-400">INT UNIQUE REFERENCES</span> work_orders(id),
+    rating <span class="text-amber-400">INT CHECK</span> (rating <span class="text-blue-400">BETWEEN</span> 1 <span class="text-blue-400">AND</span> 5),
+    comments <span class="text-amber-400">TEXT</span>,
+    created_at <span class="text-amber-400">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</pre>
+                </div>
+            </section>
+
+            <section id="business-rules"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">05.</span> Business Rules
+                </h2>
+
+                <ol class="list-decimal list-inside space-y-4 text-slate-300">
+                    <li class="leading-relaxed">
+                        <strong>Scheduling Constraints:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li>A Technician cannot be assigned to overlapping time slots (<code
+                                    class="bg-dark-900 text-cyan-300 px-1.5 py-0.5 rounded text-xs font-mono">scheduled_start</code>
+                                to <code
+                                    class="bg-dark-900 text-cyan-300 px-1.5 py-0.5 rounded text-xs font-mono">scheduled_end</code>).
+                            </li>
+                            <li><code
+                                    class="bg-dark-900 text-cyan-300 px-1.5 py-0.5 rounded text-xs font-mono">scheduled_end</code>
+                                must be strictly after <code
+                                    class="bg-dark-900 text-cyan-300 px-1.5 py-0.5 rounded text-xs font-mono">scheduled_start</code>.
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Work Order State Transitions:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li>Valid transitions: <code class="text-cyan-300 font-mono">ASSIGNED</code> $\rightarrow$
+                                <code class="text-amber-300 font-mono">IN_PROGRESS</code> $\rightarrow$ <code
+                                    class="text-emerald-300 font-mono">COMPLETED</code>.</li>
+                            <li>Reverting from <code class="text-emerald-300 font-mono">COMPLETED</code> back to <code
+                                    class="text-amber-300 font-mono">IN_PROGRESS</code> is disabled to prevent billing
+                                inconsistencies.</li>
+                        </ul>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Invoicing Logic:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li>An <code class="text-cyan-300 font-mono">Invoice</code> is generated automatically upon
+                                transitioning a <code class="text-cyan-300 font-mono">Work Order</code> to <code
+                                    class="text-emerald-300 font-mono">COMPLETED</code>.</li>
+                            <li>Changing job details post-completion requires Admin or Finance override.</li>
+                        </ul>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Cancellation Rules:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li>Customers can cancel a <code class="text-cyan-300 font-mono">Service Request</code> only
+                                while it is in <code class="text-amber-300 font-mono">PENDING</code> status.</li>
+                            <li>Once a job is <code class="text-amber-300 font-mono">IN_PROGRESS</code>, only a
+                                Dispatcher or Admin can cancel it.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="auth"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">06.</span> Authentication and Authorization
+                </h2>
+
+                <h3 class="text-xl font-semibold text-slate-200 mb-3">Authentication</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-300 mb-6">
+                    <li>Standard <strong>JWT (JSON Web Tokens)</strong> stored in HTTP-only cookies or authorization
+                        headers.</li>
+                    <li>Payload includes <code class="text-cyan-300 font-mono">userId</code>, <code
+                            class="text-cyan-300 font-mono">email</code>, and <code
+                            class="text-cyan-300 font-mono">role</code>.</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold text-slate-200 mb-3">Authorization Matrix</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="border-b border-dark-700 text-slate-400 uppercase tracking-wider text-xs bg-dark-900/50">
+                                <th class="p-4 font-semibold">Endpoint / Resource</th>
+                                <th class="p-4 font-semibold">Customer</th>
+                                <th class="p-4 font-semibold">Technician</th>
+                                <th class="p-4 font-semibold">Dispatcher</th>
+                                <th class="p-4 font-semibold">Finance</th>
+                                <th class="p-4 font-semibold">Admin</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-dark-700 text-sm text-slate-300">
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">POST /api/requests</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">GET /api/requests/me</td>
+                                <td class="p-4 text-blue-400">Own</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-cyan-400">All</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">GET /api/work-orders</td>
+                                <td class="p-4 text-blue-400">Own</td>
+                                <td class="p-4 text-amber-400">Assigned</td>
+                                <td class="p-4 text-cyan-400">All</td>
+                                <td class="p-4 text-cyan-400">All</td>
+                                <td class="p-4 text-cyan-400">All</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">POST /api/work-orders</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">PATCH /api/work-orders/:id/status</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-amber-400">Assigned</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">POST /api/invoices/:id/pay</td>
+                                <td class="p-4 text-blue-400">Own</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                                <td class="p-4 text-emerald-400">Write</td>
+                            </tr>
+                            <tr class="hover:bg-dark-700/30 transition-colors">
+                                <td class="p-4 font-mono text-cyan-300">GET /api/analytics</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-slate-500">—</td>
+                                <td class="p-4 text-purple-400">Read</td>
+                                <td class="p-4 text-purple-400">Read</td>
+                                <td class="p-4 text-purple-400">Read</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="transaction-boundaries"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">07.</span> Transaction Boundaries
+                </h2>
+
+                <p class="text-slate-300 mb-4">To maintain database consistency without external message queues, wrap
+                    related operations in database transactions (<code
+                        class="bg-dark-900 text-cyan-300 px-1.5 py-0.5 rounded text-xs font-mono">BEGIN ... COMMIT / ROLLBACK</code>):
+                </p>
+
+                <ol class="list-decimal list-inside space-y-3 text-slate-300">
+                    <li class="leading-relaxed">
+                        <strong>Work Order Creation & Request Approval:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li><em>Operations:</em> Update <code
+                                    class="text-cyan-300 font-mono">service_requests.status</code> to <code
+                                    class="text-emerald-300 font-mono">'APPROVED'</code> <strong>AND</strong> Insert new
+                                record into <code class="text-cyan-300 font-mono">work_orders</code>.</li>
+                            <li><em>Failure behavior:</em> If inserting into <code
+                                    class="text-cyan-300 font-mono">work_orders</code> fails (e.g., schedule conflict
+                                validation), roll back the request status update.</li>
+                        </ul>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Job Completion & Invoice Generation:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li><em>Operations:</em> Update <code
+                                    class="text-cyan-300 font-mono">work_orders.status</code> to <code
+                                    class="text-emerald-300 font-mono">'COMPLETED'</code> <strong>AND</strong> Create
+                                entry in <code class="text-cyan-300 font-mono">invoices</code> with baseline labor/parts
+                                cost.</li>
+                            <li><em>Failure behavior:</em> If invoice creation fails, the work order status must not
+                                update to <code class="text-emerald-300 font-mono">COMPLETED</code>.</li>
+                        </ul>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Payment Processing:</strong>
+                        <ul class="list-disc list-inside pl-6 mt-1 space-y-1 text-slate-400">
+                            <li><em>Operations:</em> Insert into <code class="text-cyan-300 font-mono">payments</code>
+                                <strong>AND</strong> Update <code class="text-cyan-300 font-mono">invoices.status</code>
+                                to <code class="text-emerald-300 font-mono">'PAID'</code>.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="caching-strategy"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">08.</span> Caching Strategy (5-Day Simplified Scope)
+                </h2>
+
+                <p class="text-slate-300 mb-4">Given the short development window, keep caching minimal and localized to
+                    avoid stale data during scheduling:</p>
+                <ul class="space-y-3 text-slate-300">
+                    <li class="flex items-start"><span
+                            class="w-2 h-2 bg-cyan-400 rounded-full mt-2 mr-3 shrink-0"></span>
+                        <div><strong>In-Memory / Application Level:</strong> Cache static reference data (e.g., <code
+                                class="text-cyan-300 font-mono">skills</code> list) in application memory or Redis (if
+                            already configured).</div>
+                    </li>
+                    <li class="flex items-start"><span
+                            class="w-2 h-2 bg-cyan-400 rounded-full mt-2 mr-3 shrink-0"></span>
+                        <div><strong>No Heavy Caching for Work Orders:</strong> Work order status and schedules change
+                            frequently. Query these directly from the database using indexed queries (<code
+                                class="text-cyan-300 font-mono">WHERE technician_id = ? AND scheduled_start >= ?</code>)
+                            to guarantee real-time accuracy for dispatching.</div>
+                    </li>
+                    <li class="flex items-start"><span
+                            class="w-2 h-2 bg-cyan-400 rounded-full mt-2 mr-3 shrink-0"></span>
+                        <div><strong>HTTP Cache Headers:</strong> Disable aggressive browser caching for <code
+                                class="text-cyan-300 font-mono">/api/work-orders</code> endpoints using standard headers
+                            (<code class="text-cyan-300 font-mono">Cache-Control: no-store</code>).</div>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="admin-operations"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">09.</span> Admin Operations & Maintenance
+                </h2>
+
+                <ul class="space-y-4 text-slate-300">
+                    <li class="bg-dark-900/40 p-4 rounded-xl border border-dark-700/50">
+                        <strong class="text-indigo-400 block mb-1">User & Skill Management</strong>
+                        <ul class="list-disc list-inside pl-4 text-slate-400 space-y-1 text-sm">
+                            <li>Create, update, or deactivate Technician profiles.</li>
+                            <li>Add/Edit skill categories (e.g., "HVAC", "Plumbing", "Electrical").</li>
+                        </ul>
+                    </li>
+                    <li class="bg-dark-900/40 p-4 rounded-xl border border-dark-700/50">
+                        <strong class="text-indigo-400 block mb-1">Manual Schedule Overrides</strong>
+                        <p class="text-sm text-slate-400">Dispatchers/Admins can reassign a Work Order to a different
+                            technician or force-reschedule a time slot if an unexpected emergency occurs.</p>
+                    </li>
+                    <li class="bg-dark-900/40 p-4 rounded-xl border border-dark-700/50">
+                        <strong class="text-indigo-400 block mb-1">System Diagnostics</strong>
+                        <p class="text-sm text-slate-400">Basic endpoint (<code
+                                class="text-cyan-300 font-mono">GET /api/health</code>) returning DB connection status
+                            and server uptime.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="analytics"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">10.</span> Analytics & Reporting (Minimal Viable
+                    Dashboard)
+                </h2>
+
+                <p class="text-slate-300 mb-4">Keep reports limited to simple aggregate SQL queries:</p>
+                <ol class="list-decimal list-inside space-y-4 text-slate-300">
+                    <li class="leading-relaxed">
+                        <strong>Technician Utilization / Job Count:</strong>
+                        <p class="text-sm text-slate-400 mt-1">Total completed jobs per technician over a selected date
+                            range.</p>
+                        <div
+                            class="bg-dark-900 font-mono text-xs text-cyan-300 p-3 rounded-lg mt-2 border border-dark-700">
+                            Query: COUNT(work_orders.id) grouped by technician_id where status = 'COMPLETED'.</div>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Revenue Summary:</strong>
+                        <p class="text-sm text-slate-400 mt-1">Total paid vs. unpaid invoice amounts.</p>
+                        <div
+                            class="bg-dark-900 font-mono text-xs text-cyan-300 p-3 rounded-lg mt-2 border border-dark-700">
+                            Query: SUM(amount) grouped by status from invoices.</div>
+                    </li>
+                    <li class="leading-relaxed">
+                        <strong>Customer Satisfaction:</strong>
+                        <p class="text-sm text-slate-400 mt-1">Average rating score per technician or overall system
+                            average.</p>
+                        <div
+                            class="bg-dark-900 font-mono text-xs text-cyan-300 p-3 rounded-lg mt-2 border border-dark-700">
+                            Query: AVG(rating) joined across work_orders and feedback.</div>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="edge-cases"
+                class="bg-dark-800/60 border border-dark-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="text-cyan-400 mr-3 font-mono">11.</span> Important Edge Cases & Handling Strategy
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-dark-900/60 p-5 rounded-xl border border-dark-700">
+                        <h3 class="text-base font-semibold text-rose-400 mb-2">1. Schedule Overlaps (Double-Booking)
+                        </h3>
+                        <p class="text-sm text-slate-300 mb-2"><strong>Issue:</strong> Two dispatchers attempt to assign
+                            the same technician to different jobs at overlapping times.</p>
+                        <p class="text-sm text-slate-400"><strong>Handling:</strong> Use a database check or SQL
+                            conditional insert checking: <code
+                                class="text-cyan-300 text-xs font-mono">WHERE technician_id = :id AND scheduled_start &lt; :new_end AND scheduled_end &gt; :new_start</code>.
+                            Reject with a <code class="text-rose-300 font-mono text-xs">409 Conflict</code> status code.
+                        </p>
+                    </div>
+
+                    <div class="bg-dark-900/60 p-5 rounded-xl border border-dark-700">
+                        <h3 class="text-base font-semibold text-amber-400 mb-2">2. Technician No-Show / Overdue Job</h3>
+                        <p class="text-sm text-slate-300 mb-2"><strong>Issue:</strong> Job scheduled time passes, but
+                            status is still <code class="text-cyan-300 font-mono text-xs">ASSIGNED</code>.</p>
+                        <p class="text-sm text-slate-400"><strong>Handling:</strong> Display an "Overdue" visual
+                            indicator on the Dispatcher dashboard if <code
+                                class="text-cyan-300 font-mono text-xs">NOW() &gt; scheduled_end</code> and <code
+                                class="text-cyan-300 font-mono text-xs">status != 'COMPLETED'</code>.</p>
+                    </div>
+
+                    <div class="bg-dark-900/60 p-5 rounded-xl border border-dark-700">
+                        <h3 class="text-base font-semibold text-amber-400 mb-2">3. Simultaneous Status Updates</h3>
+                        <p class="text-sm text-slate-300 mb-2"><strong>Issue:</strong> Technician completes a job at the
+                            same time a dispatcher tries to cancel it.</p>
+                        <p class="text-sm text-slate-400"><strong>Handling:</strong> Use basic optimistic locking (check
+                            <code class="text-cyan-300 font-mono text-xs">updated_at</code> or current <code
+                                class="text-cyan-300 font-mono text-xs">status</code> in the <code
+                                class="text-cyan-300 font-mono text-xs">UPDATE</code> query clause).</p>
+                    </div>
+
+                    <div class="bg-dark-900/60 p-5 rounded-xl border border-dark-700">
+                        <h3 class="text-base font-semibold text-rose-400 mb-2">4. Deleting Users with Active Jobs</h3>
+                        <p class="text-sm text-slate-300 mb-2"><strong>Issue:</strong> Attempting to delete a Technician
+                            account assigned to pending work orders.</p>
+                        <p class="text-sm text-slate-400"><strong>Handling:</strong> Soft-delete users (<code
+                                class="text-cyan-300 font-mono text-xs">is_active = false</code>) instead of hard
+                            database deletions to maintain foreign key integrity.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="mt-16 pt-8 border-t border-dark-700 text-center text-slate-500 text-sm">
+            <p>Field Service Management System (FSMS) — Requirements Specification Document &bull; Dark Mode Theme</p>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

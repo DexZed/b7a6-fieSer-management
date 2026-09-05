@@ -1,0 +1,206 @@
+model Skill {
+  id   Int               @id @default(autoincrement())
+  name String            @unique
+  tech TechnicianSkill[]
+
+  @@map("skills")
+}
+
+model TechnicianSkill {
+  technicianId String
+  skillId      Int
+
+  technician User  @relation(fields: [technicianId], references: [id], onDelete: Cascade)
+  skill      Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([technicianId, skillId])
+  @@map("technician_skills")
+}
+
+model ServiceRequest {
+  id          Int           @id @default(autoincrement())
+  customerId  String
+  title       String
+  description String
+  address     String
+  status      RequestStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+
+  customer  User       @relation("CustomerRequests", fields: [customerId], references: [id])
+  workOrder WorkOrder?
+
+  @@map("service_requests")
+}
+
+model WorkOrder {
+  id              Int             @id @default(autoincrement())
+  requestId       Int             @unique
+  technicianId    String
+  dispatcherId    String
+  status          WorkOrderStatus @default(ASSIGNED)
+  scheduledStart  DateTime
+  scheduledEnd    DateTime
+  completionNotes String?
+  createdAt       DateTime        @default(now())
+
+  serviceRequest ServiceRequest @relation(fields: [requestId], references: [id])
+  technician     User           @relation("AssignedTechnician", fields: [technicianId], references: [id])
+  dispatcher     User           @relation("DispatchedBy", fields: [dispatcherId], references: [id])
+  invoice        Invoice?
+  feedback       Feedback?
+
+  @@map("work_orders")
+}
+
+model Invoice {
+  id          Int           @id @default(autoincrement())
+  workOrderId Int           @unique
+  amount      Decimal
+  status      InvoiceStatus @default(UNPAID)
+  createdAt   DateTime      @default(now())
+
+  workOrder WorkOrder @relation(fields: [workOrderId], references: [id])
+  payments  Payment[]
+
+  @@map("invoices")
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  invoiceId     Int
+  amountPaid    Decimal
+  paymentMethod String   @default("CREDIT_CARD")
+  paidAt        DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+
+  @@map("payments")
+}
+
+model Feedback {
+  id          Int      @id @default(autoincrement())
+  workOrderId Int      @unique
+  rating      Int
+  comments    String?
+  createdAt   DateTime @default(now())
+
+  workOrder WorkOrder @relation(fields: [workOrderId], references: [id])
+
+  @@map("feedback")
+}
+
+enum Role {
+  CUSTOMER
+  TECHNICIAN
+  DISPATCHER
+  FINANCE
+  ADMIN
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum WorkOrderStatus {
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+  CANCELLED
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  // Relations
+  skills                  TechnicianSkill[]
+  customerServiceRequests ServiceRequest[]  @relation("CustomerRequests")
+  assignedWorkOrders      WorkOrder[]       @relation("AssignedTechnician")
+  dispatchedWorkOrders    WorkOrder[]       @relation("DispatchedBy")
+
+  role   String  @default("customer")
+  status String? @default("active")
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  issuer                String
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@unique([issuer, accountId], map: "account_issuer_accountId_uidx")
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "preserve",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
@@ -17,14 +17,11 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "types": [
-      "vitest/globals",
-      "node"
-    ],
-    "resolveJsonModule": true
+    "types": ["vitest/globals", "node"]
   },
-  "exclude": [
-    "node_modules",
-    "prisma.config.ts"
+  "include": [
+    "src/**/*",
+    "generated/prisma/**/*",
+    "prisma/**/*.ts"
   ]
 }

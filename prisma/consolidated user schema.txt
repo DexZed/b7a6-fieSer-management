@@ -1,0 +1,9 @@
+// Additional User Fields
+  role      Role    @default(CUSTOMER)
+  isActive  Boolean @default(true)
+
+  // Additional User Relations
+  skills                  TechnicianSkill[]
+  customerServiceRequests ServiceRequest[]  @relation("CustomerRequests")
+  assignedWorkOrders      WorkOrder[]       @relation("AssignedTechnician")
+  dispatchedWorkOrders    WorkOrder[]       @relation("DispatchedBy")
