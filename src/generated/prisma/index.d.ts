@@ -77,7 +77,6 @@ export namespace $Enums {
   CUSTOMER: 'CUSTOMER',
   TECHNICIAN: 'TECHNICIAN',
   DISPATCHER: 'DISPATCHER',
-  FINANCE: 'FINANCE',
   ADMIN: 'ADMIN'
 };
 
@@ -1865,11 +1864,11 @@ export namespace Prisma {
    */
 
   export type SkillCountOutputType = {
-    tech: number
+    techs: number
   }
 
   export type SkillCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tech?: boolean | SkillCountOutputTypeCountTechArgs
+    techs?: boolean | SkillCountOutputTypeCountTechsArgs
   }
 
   // Custom InputTypes
@@ -1886,7 +1885,7 @@ export namespace Prisma {
   /**
    * SkillCountOutputType without action
    */
-  export type SkillCountOutputTypeCountTechArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SkillCountOutputTypeCountTechsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TechnicianSkillWhereInput
   }
 
@@ -2176,7 +2175,7 @@ export namespace Prisma {
   export type SkillSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    tech?: boolean | Skill$techArgs<ExtArgs>
+    techs?: boolean | Skill$techsArgs<ExtArgs>
     _count?: boolean | SkillCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["skill"]>
 
@@ -2197,7 +2196,7 @@ export namespace Prisma {
 
   export type SkillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["skill"]>
   export type SkillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tech?: boolean | Skill$techArgs<ExtArgs>
+    techs?: boolean | Skill$techsArgs<ExtArgs>
     _count?: boolean | SkillCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SkillIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2206,7 +2205,7 @@ export namespace Prisma {
   export type $SkillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Skill"
     objects: {
-      tech: Prisma.$TechnicianSkillPayload<ExtArgs>[]
+      techs: Prisma.$TechnicianSkillPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2605,7 +2604,7 @@ export namespace Prisma {
    */
   export interface Prisma__SkillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tech<T extends Skill$techArgs<ExtArgs> = {}>(args?: Subset<T, Skill$techArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    techs<T extends Skill$techsArgs<ExtArgs> = {}>(args?: Subset<T, Skill$techsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3030,9 +3029,9 @@ export namespace Prisma {
   }
 
   /**
-   * Skill.tech
+   * Skill.techs
    */
-  export type Skill$techArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Skill$techsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TechnicianSkill
      */
@@ -9862,8 +9861,8 @@ export namespace Prisma {
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    role: string | null
-    status: string | null
+    role: $Enums.Role | null
+    isActive: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -9874,8 +9873,8 @@ export namespace Prisma {
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    role: string | null
-    status: string | null
+    role: $Enums.Role | null
+    isActive: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -9887,7 +9886,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     role: number
-    status: number
+    isActive: number
     _all: number
   }
 
@@ -9901,7 +9900,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     role?: true
-    status?: true
+    isActive?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -9913,7 +9912,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     role?: true
-    status?: true
+    isActive?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -9925,7 +9924,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     role?: true
-    status?: true
+    isActive?: true
     _all?: true
   }
 
@@ -10009,8 +10008,8 @@ export namespace Prisma {
     image: string | null
     createdAt: Date
     updatedAt: Date
-    role: string
-    status: string | null
+    role: $Enums.Role
+    isActive: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -10039,7 +10038,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean
-    status?: boolean
+    isActive?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     skills?: boolean | User$skillsArgs<ExtArgs>
@@ -10058,7 +10057,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean
-    status?: boolean
+    isActive?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10070,7 +10069,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean
-    status?: boolean
+    isActive?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -10082,10 +10081,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean
-    status?: boolean
+    isActive?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "status", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "isActive", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -10116,8 +10115,8 @@ export namespace Prisma {
       image: string | null
       createdAt: Date
       updatedAt: Date
-      role: string
-      status: string | null
+      role: $Enums.Role
+      isActive: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -10554,8 +10553,8 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
-    readonly role: FieldRef<"User", 'String'>
-    readonly status: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'Role'>
+    readonly isActive: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -14506,7 +14505,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     role: 'role',
-    status: 'status'
+    isActive: 'isActive'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -14693,6 +14692,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role[]'
+   */
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -14715,13 +14728,13 @@ export namespace Prisma {
     NOT?: SkillWhereInput | SkillWhereInput[]
     id?: IntFilter<"Skill"> | number
     name?: StringFilter<"Skill"> | string
-    tech?: TechnicianSkillListRelationFilter
+    techs?: TechnicianSkillListRelationFilter
   }
 
   export type SkillOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    tech?: TechnicianSkillOrderByRelationAggregateInput
+    techs?: TechnicianSkillOrderByRelationAggregateInput
   }
 
   export type SkillWhereUniqueInput = Prisma.AtLeast<{
@@ -14730,7 +14743,7 @@ export namespace Prisma {
     AND?: SkillWhereInput | SkillWhereInput[]
     OR?: SkillWhereInput[]
     NOT?: SkillWhereInput | SkillWhereInput[]
-    tech?: TechnicianSkillListRelationFilter
+    techs?: TechnicianSkillListRelationFilter
   }, "id" | "name">
 
   export type SkillOrderByWithAggregationInput = {
@@ -15141,8 +15154,8 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    role?: StringFilter<"User"> | string
-    status?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
+    isActive?: BoolFilter<"User"> | boolean
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     skills?: TechnicianSkillListRelationFilter
@@ -15160,7 +15173,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: SortOrder
-    status?: SortOrderInput | SortOrder
+    isActive?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     skills?: TechnicianSkillOrderByRelationAggregateInput
@@ -15180,8 +15193,8 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    role?: StringFilter<"User"> | string
-    status?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
+    isActive?: BoolFilter<"User"> | boolean
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     skills?: TechnicianSkillListRelationFilter
@@ -15199,7 +15212,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: SortOrder
-    status?: SortOrderInput | SortOrder
+    isActive?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -15216,8 +15229,8 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    role?: StringWithAggregatesFilter<"User"> | string
-    status?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    isActive?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type SessionWhereInput = {
@@ -15450,24 +15463,24 @@ export namespace Prisma {
 
   export type SkillCreateInput = {
     name: string
-    tech?: TechnicianSkillCreateNestedManyWithoutSkillInput
+    techs?: TechnicianSkillCreateNestedManyWithoutSkillInput
   }
 
   export type SkillUncheckedCreateInput = {
     id?: number
     name: string
-    tech?: TechnicianSkillUncheckedCreateNestedManyWithoutSkillInput
+    techs?: TechnicianSkillUncheckedCreateNestedManyWithoutSkillInput
   }
 
   export type SkillUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    tech?: TechnicianSkillUpdateManyWithoutSkillNestedInput
+    techs?: TechnicianSkillUpdateManyWithoutSkillNestedInput
   }
 
   export type SkillUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    tech?: TechnicianSkillUncheckedUpdateManyWithoutSkillNestedInput
+    techs?: TechnicianSkillUncheckedUpdateManyWithoutSkillNestedInput
   }
 
   export type SkillCreateManyInput = {
@@ -15486,7 +15499,7 @@ export namespace Prisma {
 
   export type TechnicianSkillCreateInput = {
     technician: UserCreateNestedOneWithoutSkillsInput
-    skill: SkillCreateNestedOneWithoutTechInput
+    skill: SkillCreateNestedOneWithoutTechsInput
   }
 
   export type TechnicianSkillUncheckedCreateInput = {
@@ -15496,7 +15509,7 @@ export namespace Prisma {
 
   export type TechnicianSkillUpdateInput = {
     technician?: UserUpdateOneRequiredWithoutSkillsNestedInput
-    skill?: SkillUpdateOneRequiredWithoutTechNestedInput
+    skill?: SkillUpdateOneRequiredWithoutTechsNestedInput
   }
 
   export type TechnicianSkillUncheckedUpdateInput = {
@@ -15842,8 +15855,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -15860,8 +15873,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -15878,8 +15891,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -15896,8 +15909,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -15914,8 +15927,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -15926,8 +15939,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -15938,8 +15951,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SessionCreateInput = {
@@ -16708,6 +16721,13 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type SessionListRelationFilter = {
     every?: SessionWhereInput
     some?: SessionWhereInput
@@ -16757,7 +16777,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: SortOrder
-    status?: SortOrder
+    isActive?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -16769,7 +16789,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: SortOrder
-    status?: SortOrder
+    isActive?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -16781,7 +16801,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: SortOrder
-    status?: SortOrder
+    isActive?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -16790,6 +16810,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -16993,9 +17023,9 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type SkillCreateNestedOneWithoutTechInput = {
-    create?: XOR<SkillCreateWithoutTechInput, SkillUncheckedCreateWithoutTechInput>
-    connectOrCreate?: SkillCreateOrConnectWithoutTechInput
+  export type SkillCreateNestedOneWithoutTechsInput = {
+    create?: XOR<SkillCreateWithoutTechsInput, SkillUncheckedCreateWithoutTechsInput>
+    connectOrCreate?: SkillCreateOrConnectWithoutTechsInput
     connect?: SkillWhereUniqueInput
   }
 
@@ -17007,12 +17037,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSkillsInput, UserUpdateWithoutSkillsInput>, UserUncheckedUpdateWithoutSkillsInput>
   }
 
-  export type SkillUpdateOneRequiredWithoutTechNestedInput = {
-    create?: XOR<SkillCreateWithoutTechInput, SkillUncheckedCreateWithoutTechInput>
-    connectOrCreate?: SkillCreateOrConnectWithoutTechInput
-    upsert?: SkillUpsertWithoutTechInput
+  export type SkillUpdateOneRequiredWithoutTechsNestedInput = {
+    create?: XOR<SkillCreateWithoutTechsInput, SkillUncheckedCreateWithoutTechsInput>
+    connectOrCreate?: SkillCreateOrConnectWithoutTechsInput
+    upsert?: SkillUpsertWithoutTechsInput
     connect?: SkillWhereUniqueInput
-    update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutTechInput, SkillUpdateWithoutTechInput>, SkillUncheckedUpdateWithoutTechInput>
+    update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutTechsInput, SkillUpdateWithoutTechsInput>, SkillUncheckedUpdateWithoutTechsInput>
   }
 
   export type UserCreateNestedOneWithoutCustomerServiceRequestsInput = {
@@ -17365,6 +17395,10 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -17786,12 +17820,29 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -17869,8 +17920,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     customerServiceRequests?: ServiceRequestCreateNestedManyWithoutCustomerInput
@@ -17886,8 +17937,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     customerServiceRequests?: ServiceRequestUncheckedCreateNestedManyWithoutCustomerInput
@@ -17900,18 +17951,18 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutSkillsInput, UserUncheckedCreateWithoutSkillsInput>
   }
 
-  export type SkillCreateWithoutTechInput = {
+  export type SkillCreateWithoutTechsInput = {
     name: string
   }
 
-  export type SkillUncheckedCreateWithoutTechInput = {
+  export type SkillUncheckedCreateWithoutTechsInput = {
     id?: number
     name: string
   }
 
-  export type SkillCreateOrConnectWithoutTechInput = {
+  export type SkillCreateOrConnectWithoutTechsInput = {
     where: SkillWhereUniqueInput
-    create: XOR<SkillCreateWithoutTechInput, SkillUncheckedCreateWithoutTechInput>
+    create: XOR<SkillCreateWithoutTechsInput, SkillUncheckedCreateWithoutTechsInput>
   }
 
   export type UserUpsertWithoutSkillsInput = {
@@ -17933,8 +17984,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     customerServiceRequests?: ServiceRequestUpdateManyWithoutCustomerNestedInput
@@ -17950,8 +18001,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     customerServiceRequests?: ServiceRequestUncheckedUpdateManyWithoutCustomerNestedInput
@@ -17959,22 +18010,22 @@ export namespace Prisma {
     dispatchedWorkOrders?: WorkOrderUncheckedUpdateManyWithoutDispatcherNestedInput
   }
 
-  export type SkillUpsertWithoutTechInput = {
-    update: XOR<SkillUpdateWithoutTechInput, SkillUncheckedUpdateWithoutTechInput>
-    create: XOR<SkillCreateWithoutTechInput, SkillUncheckedCreateWithoutTechInput>
+  export type SkillUpsertWithoutTechsInput = {
+    update: XOR<SkillUpdateWithoutTechsInput, SkillUncheckedUpdateWithoutTechsInput>
+    create: XOR<SkillCreateWithoutTechsInput, SkillUncheckedCreateWithoutTechsInput>
     where?: SkillWhereInput
   }
 
-  export type SkillUpdateToOneWithWhereWithoutTechInput = {
+  export type SkillUpdateToOneWithWhereWithoutTechsInput = {
     where?: SkillWhereInput
-    data: XOR<SkillUpdateWithoutTechInput, SkillUncheckedUpdateWithoutTechInput>
+    data: XOR<SkillUpdateWithoutTechsInput, SkillUncheckedUpdateWithoutTechsInput>
   }
 
-  export type SkillUpdateWithoutTechInput = {
+  export type SkillUpdateWithoutTechsInput = {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type SkillUncheckedUpdateWithoutTechInput = {
+  export type SkillUncheckedUpdateWithoutTechsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
   }
@@ -17987,8 +18038,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -18004,8 +18055,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -18067,8 +18118,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -18084,8 +18135,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -18161,8 +18212,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -18178,8 +18229,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -18200,8 +18251,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
@@ -18217,8 +18268,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
@@ -18318,8 +18369,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -18335,8 +18386,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -18363,8 +18414,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
@@ -18380,8 +18431,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
@@ -18740,7 +18791,7 @@ export namespace Prisma {
   }
 
   export type TechnicianSkillCreateWithoutTechnicianInput = {
-    skill: SkillCreateNestedOneWithoutTechInput
+    skill: SkillCreateNestedOneWithoutTechsInput
   }
 
   export type TechnicianSkillUncheckedCreateWithoutTechnicianInput = {
@@ -19022,8 +19073,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestCreateNestedManyWithoutCustomerInput
@@ -19039,8 +19090,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestUncheckedCreateNestedManyWithoutCustomerInput
@@ -19072,8 +19123,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUpdateManyWithoutCustomerNestedInput
@@ -19089,8 +19140,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUncheckedUpdateManyWithoutCustomerNestedInput
@@ -19106,8 +19157,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestCreateNestedManyWithoutCustomerInput
@@ -19123,8 +19174,8 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    role?: string
-    status?: string | null
+    role?: $Enums.Role
+    isActive?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     skills?: TechnicianSkillUncheckedCreateNestedManyWithoutTechnicianInput
     customerServiceRequests?: ServiceRequestUncheckedCreateNestedManyWithoutCustomerInput
@@ -19156,8 +19207,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUpdateManyWithoutCustomerNestedInput
@@ -19173,8 +19224,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     skills?: TechnicianSkillUncheckedUpdateManyWithoutTechnicianNestedInput
     customerServiceRequests?: ServiceRequestUncheckedUpdateManyWithoutCustomerNestedInput
@@ -19365,7 +19416,7 @@ export namespace Prisma {
   }
 
   export type TechnicianSkillUpdateWithoutTechnicianInput = {
-    skill?: SkillUpdateOneRequiredWithoutTechNestedInput
+    skill?: SkillUpdateOneRequiredWithoutTechsNestedInput
   }
 
   export type TechnicianSkillUncheckedUpdateWithoutTechnicianInput = {

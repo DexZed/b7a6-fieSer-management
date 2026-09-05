@@ -185,7 +185,7 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   role: 'role',
-  status: 'status'
+  isActive: 'isActive'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -257,6 +257,13 @@ exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   UNPAID: 'UNPAID',
   PAID: 'PAID',
   CANCELLED: 'CANCELLED'
+};
+
+exports.Role = exports.$Enums.Role = {
+  CUSTOMER: 'CUSTOMER',
+  TECHNICIAN: 'TECHNICIAN',
+  DISPATCHER: 'DISPATCHER',
+  ADMIN: 'ADMIN'
 };
 
 exports.Prisma.ModelName = {

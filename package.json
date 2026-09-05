@@ -23,7 +23,8 @@
     "auth:regenerate": "bun x auth@latest generate",
     "migrate": "bunx prisma migrate dev",
     "studio": "bunx prisma studio",
-    "regenerate": "bunx prisma generate"
+    "regenerate": "bunx prisma generate",
+    "db:reset":"bunx prisma migrate reset"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "^1.7.2",
