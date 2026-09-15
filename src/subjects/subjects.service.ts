@@ -4,11 +4,11 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../lib/prisma.service.js';
+import { DatabaseService } from '../database/database.service.js';
 
 @Injectable()
 export class SubjectsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: DatabaseService) {}
   async create(dto: {
     departmentId: number;
     name: string;
@@ -117,113 +117,113 @@ export class SubjectsService {
       throw new InternalServerErrorException('Failed to fetch subject details');
     }
   }
-  // List classes in a subject with pagination
-  async findClasses(id: number, page = 1, limit = 10) {
-    const subjectId = Number(id);
-    if (!Number.isFinite(subjectId)) {
-      throw new BadRequestException('Invalid subject id');
-    }
+  //   // List classes in a subject with pagination
+  //   async findClasses(id: number, page = 1, limit = 10) {
+  //     const subjectId = Number(id);
+  //     if (!Number.isFinite(subjectId)) {
+  //       throw new BadRequestException('Invalid subject id');
+  //     }
 
-    const currentPage = Math.max(1, Number(page));
-    const limitPerPage = Math.max(1, Number(limit));
-    const skip = (currentPage - 1) * limitPerPage;
+  //     const currentPage = Math.max(1, Number(page));
+  //     const limitPerPage = Math.max(1, Number(limit));
+  //     const skip = (currentPage - 1) * limitPerPage;
 
-    try {
-      const [totalCount, classesList] = await Promise.all([
-        this.prisma.class.count({ where: { subjectId } }),
-        this.prisma.class.findMany({
-          where: { subjectId },
-          include: { teacher: true },
-          orderBy: { createdAt: 'desc' },
-          skip,
-          take: limitPerPage,
-        }),
-      ]);
+  //     try {
+  //       const [totalCount, classesList] = await Promise.all([
+  //         this.prisma.class.count({ where: { subjectId } }),
+  //         this.prisma.class.findMany({
+  //           where: { subjectId },
+  //           include: { teacher: true },
+  //           orderBy: { createdAt: 'desc' },
+  //           skip,
+  //           take: limitPerPage,
+  //         }),
+  //       ]);
 
-      return {
-        data: classesList,
-        pagination: {
-          page: currentPage,
-          limit: limitPerPage,
-          total: totalCount,
-          totalPages: Math.ceil(totalCount / limitPerPage),
-        },
-      };
-    } catch (error) {
-      console.error('GET /subjects/:id/classes error:', error);
-      throw new InternalServerErrorException('Failed to fetch subject classes');
-    }
-  }
-  // List users in a subject by role with pagination
+  //       return {
+  //         data: classesList,
+  //         pagination: {
+  //           page: currentPage,
+  //           limit: limitPerPage,
+  //           total: totalCount,
+  //           totalPages: Math.ceil(totalCount / limitPerPage),
+  //         },
+  //       };
+  //     } catch (error) {
+  //       console.error('GET /subjects/:id/classes error:', error);
+  //       throw new InternalServerErrorException('Failed to fetch subject classes');
+  //     }
+  //   }
+  //   // List users in a subject by role with pagination
 
-  async findUsers(id: number, role: string, page = 1, limit = 10) {
-    const subjectId = Number(id);
-    if (!Number.isFinite(subjectId)) {
-      throw new BadRequestException('Invalid subject id');
-    }
+  //   async findUsers(id: number, role: string, page = 1, limit = 10) {
+  //     const subjectId = Number(id);
+  //     if (!Number.isFinite(subjectId)) {
+  //       throw new BadRequestException('Invalid subject id');
+  //     }
 
-    if (role !== 'teacher' && role !== 'student') {
-      throw new BadRequestException('Invalid role');
-    }
+  //     if (role !== 'teacher' && role !== 'student') {
+  //       throw new BadRequestException('Invalid role');
+  //     }
 
-    const currentPage = Math.max(1, Number(page));
-    const limitPerPage = Math.max(1, Number(limit));
-    const skip = (currentPage - 1) * limitPerPage;
+  //     const currentPage = Math.max(1, Number(page));
+  //     const limitPerPage = Math.max(1, Number(limit));
+  //     const skip = (currentPage - 1) * limitPerPage;
 
-    try {
-      let totalCount = 0;
-      let usersList = [];
+  //     try {
+  //       let totalCount = 0;
+  //       let usersList = [];
 
-      if (role === 'teacher') {
-        const where = {
-          role: 'teacher',
-          classesTaught: {
-            some: { subjectId },
-          },
-        };
+  //       if (role === 'teacher') {
+  //         const where = {
+  //           role: 'teacher',
+  //           classesTaught: {
+  //             some: { subjectId },
+  //           },
+  //         };
 
-        [totalCount, usersList] = await Promise.all([
-          this.prisma.user.count({ where }),
-          this.prisma.user.findMany({
-            where,
-            orderBy: { createdAt: 'desc' },
-            skip,
-            take: limitPerPage,
-          }),
-        ]);
-      } else {
-        const where = {
-          role: 'student',
-          enrollments: {
-            some: {
-              class: { subjectId },
-            },
-          },
-        };
+  //         [totalCount, usersList] = await Promise.all([
+  //           this.prisma.user.count({ where }),
+  //           this.prisma.user.findMany({
+  //             where,
+  //             orderBy: { createdAt: 'desc' },
+  //             skip,
+  //             take: limitPerPage,
+  //           }),
+  //         ]);
+  //       } else {
+  //         const where = {
+  //           role: 'student',
+  //           enrollments: {
+  //             some: {
+  //               class: { subjectId },
+  //             },
+  //           },
+  //         };
 
-        [totalCount, usersList] = await Promise.all([
-          this.prisma.user.count({ where }),
-          this.prisma.user.findMany({
-            where,
-            orderBy: { createdAt: 'desc' },
-            skip,
-            take: limitPerPage,
-          }),
-        ]);
-      }
+  //         [totalCount, usersList] = await Promise.all([
+  //           this.prisma.user.count({ where }),
+  //           this.prisma.user.findMany({
+  //             where,
+  //             orderBy: { createdAt: 'desc' },
+  //             skip,
+  //             take: limitPerPage,
+  //           }),
+  //         ]);
+  //       }
 
-      return {
-        data: usersList,
-        pagination: {
-          page: currentPage,
-          limit: limitPerPage,
-          total: totalCount,
-          totalPages: Math.ceil(totalCount / limitPerPage),
-        },
-      };
-    } catch (error) {
-      console.error('GET /subjects/:id/users error:', error);
-      throw new InternalServerErrorException('Failed to fetch subject users');
-    }
-  }
+  //       return {
+  //         data: usersList,
+  //         pagination: {
+  //           page: currentPage,
+  //           limit: limitPerPage,
+  //           total: totalCount,
+  //           totalPages: Math.ceil(totalCount / limitPerPage),
+  //         },
+  //       };
+  //     } catch (error) {
+  //       console.error('GET /subjects/:id/users error:', error);
+  //       throw new InternalServerErrorException('Failed to fetch subject users');
+  //     }
+  //   }
 }

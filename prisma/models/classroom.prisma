@@ -15,8 +15,19 @@ enum PaymentStatus {
     @@map("payment_status")
 }
 
+enum UserRole {
+    admin
+    teacher
+    student
+
+    @@map("user_role")
+}
+
 model User {
     id          String       @id
+    createdAt   DateTime     @default(now()) @map("created_at")
+    updatedAt   DateTime     @updatedAt @map("updated_at")
+    role        UserRole     @default(student) @map("role")
     classes     Class[] // Classes taught by the teacher
     enrollments Enrollment[] // Classes the student is enrolled in
     payments    Payment[] // One-time purchases made by the user
