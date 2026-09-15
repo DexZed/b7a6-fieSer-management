@@ -1,34 +1,64 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Query,
+  Param,
+} from '@nestjs/common';
 import { SubjectsService } from './subjects.service.js';
-import { CreateSubjectDto } from './dto/create-subject.dto.js';
-import { UpdateSubjectDto } from './dto/update-subject.dto.js';
 
 @Controller('subjects')
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
-  @Post()
-  create(@Body() createSubjectDto: CreateSubjectDto) {
-    return this.subjectsService.create(createSubjectDto);
+  @Get()
+  async findAll(
+    @Query('search') search?: string,
+    @Query('department') department?: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.subjectsService.findAll(search, department, page, limit);
   }
 
-  @Get()
-  findAll() {
-    return this.subjectsService.findAll();
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  async create(
+    @Body()
+    body: {
+      departmentId: number;
+      name: string;
+      code: string;
+      description?: string;
+    },
+  ) {
+    return this.subjectsService.create(body);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subjectsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.subjectsService.findOne(Number(id));
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubjectDto: UpdateSubjectDto) {
-    return this.subjectsService.update(+id, updateSubjectDto);
+  @Get(':id/classes')
+  async findClasses(
+    @Param('id') id: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.subjectsService.findClasses(Number(id), page, limit);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subjectsService.remove(+id);
+  @Get(':id/users')
+  async findUsers(
+    @Param('id') id: string,
+    @Query('role') role: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.subjectsService.findUsers(Number(id), role, page, limit);
   }
 }
