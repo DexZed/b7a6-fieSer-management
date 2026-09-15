@@ -24,8 +24,7 @@
     "migrate": "bunx prisma migrate dev",
     "studio": "bunx prisma studio",
     "regenerate": "bunx prisma generate",
-    "db:reset":"bunx prisma migrate reset"
-
+    "db:reset": "bunx prisma migrate reset"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
@@ -41,6 +40,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^12.0.0",
+    "@nestjs/config": "^12.0.0",
     "@nestjs/mau": "^0.2.6",
     "@nestjs/schematics": "^12.0.0",
     "@nestjs/testing": "^12.0.1",
@@ -49,6 +49,8 @@
     "@types/pg": "^8.23.1",
     "@types/supertest": "^7.0.0",
     "@vitest/coverage-v8": "^4.1.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "oxlint": "^1.58.0",
     "prettier": "^3.4.2",
     "prisma": "7.10.0",

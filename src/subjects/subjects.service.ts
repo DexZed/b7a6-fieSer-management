@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service.js';
+import { Prisma } from '../generated/prisma/client.js';
 
 @Injectable()
 export class SubjectsService {
@@ -12,6 +13,7 @@ export class SubjectsService {
   async create(dto: {
     departmentId: number;
     name: string;
+
     code: string;
     description?: string;
   }) {
@@ -38,7 +40,7 @@ export class SubjectsService {
       const limitPerPage = Math.max(1, Number(limit));
       const skip = (currentPage - 1) * limitPerPage;
 
-      const where: any = {};
+      const where: Prisma.SubjectWhereInput = {};
 
       if (search) {
         where.OR = [
@@ -49,7 +51,12 @@ export class SubjectsService {
 
       if (department) {
         where.department = {
-          name: { contains: department, mode: 'insensitive' },
+          is: {
+            name: {
+              contains: department,
+              mode: 'insensitive',
+            },
+          },
         };
       }
       // Count query MUST include the join
