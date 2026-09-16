@@ -9,8 +9,10 @@ import {
   Param,
 } from '@nestjs/common';
 import { SubjectsService } from './subjects.service.js';
+import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 
 @Controller('subjects')
+@AllowAnonymous()
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 

@@ -4,12 +4,12 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service.js';
+
 import { Prisma } from '../generated/prisma/client.js';
+import { prisma } from '../lib/prisma.js';
 
 @Injectable()
 export class SubjectsService {
-  constructor(private readonly prisma: DatabaseService) {}
   async create(dto: {
     departmentId: number;
     name: string;
@@ -18,7 +18,7 @@ export class SubjectsService {
     description?: string;
   }) {
     try {
-      const createdSubject = await this.prisma.subject.create({
+      const createdSubject = await prisma.subject.create({
         data: dto,
         select: { id: true },
       });
@@ -61,8 +61,8 @@ export class SubjectsService {
       }
       // Count query MUST include the join
       const [totalCount, subjectsList] = await Promise.all([
-        this.prisma.subject.count({ where }),
-        this.prisma.subject.findMany({
+        prisma.subject.count({ where }),
+        prisma.subject.findMany({
           where,
           include: { department: true },
           orderBy: { createdAt: 'desc' },
@@ -92,7 +92,7 @@ export class SubjectsService {
     }
 
     try {
-      const subject = await this.prisma.subject.findUnique({
+      const subject = await prisma.subject.findUnique({
         where: { id },
         include: { department: true },
       });
@@ -101,7 +101,7 @@ export class SubjectsService {
         throw new NotFoundException('Subject not found');
       }
 
-      const classesCount = await this.prisma.class.count({
+      const classesCount = await prisma.class.count({
         where: { subjectId: id },
       });
 

@@ -8,7 +8,7 @@ export class AppController {
 
   @AllowAnonymous()
   @Get()
-  getHello(): string {
+  getHello() {
     return this.appService.getHello();
   }
 }
