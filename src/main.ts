@@ -5,6 +5,7 @@ import { TransformInterceptor } from './lib/transform.interceptor.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
+    bodyParser: false,
     cors: true,
   });
   app.setGlobalPrefix('api');

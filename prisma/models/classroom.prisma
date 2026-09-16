@@ -15,26 +15,6 @@ enum PaymentStatus {
     @@map("payment_status")
 }
 
-enum UserRole {
-    admin
-    teacher
-    student
-
-    @@map("user_role")
-}
-
-model User {
-    id          String       @id
-    createdAt   DateTime     @default(now()) @map("created_at")
-    updatedAt   DateTime     @updatedAt @map("updated_at")
-    role        UserRole     @default(student) @map("role")
-    classes     Class[] // Classes taught by the teacher
-    enrollments Enrollment[] // Classes the student is enrolled in
-    payments    Payment[] // One-time purchases made by the user
-
-    @@map("user")
-}
-
 model Department {
     id          Int       @id @default(autoincrement())
     code        String    @unique @db.VarChar(50)
@@ -55,7 +35,7 @@ model Subject {
     description  String?    @db.Text
     createdAt    DateTime   @default(now()) @map("created_at")
     updatedAt    DateTime   @updatedAt @map("updated_at")
-    department   Department @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+    department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
     classes      Class[]
 
     @@map("subjects")
@@ -79,7 +59,7 @@ model Class {
     updatedAt      DateTime    @updatedAt @map("updated_at")
 
     subject     Subject      @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-    teacher     User         @relation(fields: [teacherId], references: [id], onDelete: Restrict)
+    teacher     User         @relation(fields: [teacherId], references: [id], onDelete: Cascade)
     enrollments Enrollment[]
     payments    Payment[] // Transaction history for this class
 
@@ -123,7 +103,7 @@ model Enrollment {
 
     student User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
     class   Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
-    payment Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+    payment Payment? @relation(fields: [paymentId], references: [id], onDelete: Cascade)
 
     @@index([studentId], map: "enrollments_student_id_idx")
     @@index([classId], map: "enrollments_class_id_idx")
