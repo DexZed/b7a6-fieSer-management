@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { validate } from './config/env.validation.js';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './lib/auth.js';
+import { UsersModule } from './users/users.module.js';
 @Module({
   imports: [
     AuthModule.forRoot({ auth }),
@@ -14,6 +15,7 @@ import { auth } from './lib/auth.js';
       isGlobal: true,
       validate,
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
