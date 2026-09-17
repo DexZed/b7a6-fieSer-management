@@ -11,6 +11,7 @@ import { ClassesModule } from './classes/classes.module.js';
 import { DepartmentsModule } from './departments/departments.module.js';
 import { EnrolmentsModule } from './enrolments/enrolments.module.js';
 import { StatsModule } from './stats/stats.module.js';
+import { PaymentsModule } from './payments/payments.module.js';
 @Module({
   imports: [
     AuthModule.forRoot({ auth }),
@@ -24,6 +25,7 @@ import { StatsModule } from './stats/stats.module.js';
     DepartmentsModule,
     EnrolmentsModule,
     StatsModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
