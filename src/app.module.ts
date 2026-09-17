@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module.js';
 import { ClassesModule } from './classes/classes.module.js';
 import { DepartmentsModule } from './departments/departments.module.js';
 import { EnrolmentsModule } from './enrolments/enrolments.module.js';
+import { StatsModule } from './stats/stats.module.js';
 @Module({
   imports: [
     AuthModule.forRoot({ auth }),
@@ -22,6 +23,7 @@ import { EnrolmentsModule } from './enrolments/enrolments.module.js';
     ClassesModule,
     DepartmentsModule,
     EnrolmentsModule,
+    StatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
