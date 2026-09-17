@@ -9,6 +9,7 @@ import { auth } from './lib/auth.js';
 import { UsersModule } from './users/users.module.js';
 import { ClassesModule } from './classes/classes.module.js';
 import { DepartmentsModule } from './departments/departments.module.js';
+import { EnrolmentsModule } from './enrolments/enrolments.module.js';
 @Module({
   imports: [
     AuthModule.forRoot({ auth }),
@@ -20,6 +21,7 @@ import { DepartmentsModule } from './departments/departments.module.js';
     UsersModule,
     ClassesModule,
     DepartmentsModule,
+    EnrolmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
