@@ -1,14 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render, Res } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
-
+import type { Response as ExpressResponse } from 'express';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @AllowAnonymous()
   @Get()
-  getHello() {
-    return this.appService.getHello();
+  root(@Res() res: ExpressResponse) {
+    return res.render('index', { message: 'Hello world!' });
   }
 }
