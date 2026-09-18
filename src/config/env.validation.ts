@@ -18,31 +18,30 @@ enum Environment {
 // TODO: Add the Optional secrets to env
 class EnvironmentVariables {
   // App Specific Secrets
-  // @IsOptional()
-  // @IsEnum(Environment)
-  // NODE_ENV: Environment;
-  // @IsOptional()
-  // @IsNumber()
-  // @Min(0)
-  // @Max(65535)
-  // PORT: number;
+  @IsOptional()
+  @IsEnum(Environment)
+  NODE_ENV: Environment;
+
+  @IsString()
+  @IsOptional()
+  APP_URL: string;
 
   // Neon Db Secrets
   @IsString()
   DATABASE_URL: string;
 
   // Stripe Secrets
-  // @IsString()
-  // @IsOptional()
-  // STRIPE_WEBHOOK_SECRET_LOCAL: string;
+  @IsString()
+  @IsOptional()
+  STRIPE_WEBHOOK_SECRET_LOCAL: string;
 
-  // @IsString()
-  // @IsOptional()
-  // STRIPE_WEBHOOK_SECRET_PRODUCTION: string;
+  @IsString()
+  @IsOptional()
+  STRIPE_WEBHOOK_SECRET_PRODUCTION: string;
 
-  // @IsString()
-  // @IsOptional()
-  // STRIPE_API_SECRET: string;
+  @IsString()
+  @IsOptional()
+  STRIPE_API_SECRET: string;
 
   // Cloudinary Secrets
 }

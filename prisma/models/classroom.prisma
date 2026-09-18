@@ -105,8 +105,8 @@ model Enrollment {
     class   Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
     payment Payment? @relation(fields: [paymentId], references: [id], onDelete: Cascade)
 
+    @@unique([studentId, classId], map: "enrollments_student_class_unique")
     @@index([studentId], map: "enrollments_student_id_idx")
     @@index([classId], map: "enrollments_class_id_idx")
-    @@index([studentId, classId], map: "enrollments_student_class_unique")
     @@map("enrollments")
 }
