@@ -1,9 +1,17 @@
-import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  ParseIntPipe,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { StatsService } from './stats.service.js';
-import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
+import { RoleGuard } from '../common/guard/role.guard.js';
+import { Roles } from '../common/guard/roles.decorator.js';
 
 @Controller('stats')
-@AllowAnonymous()
+@UseGuards(RoleGuard)
+@Roles('admin')
 export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 

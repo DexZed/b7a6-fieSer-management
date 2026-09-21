@@ -7,12 +7,15 @@ import {
   HttpStatus,
   Query,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { SubjectsService } from './subjects.service.js';
-import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
+import { RoleGuard } from '../common/guard/role.guard.js';
+import { Roles } from '../common/guard/roles.decorator.js';
 
 @Controller('subjects')
-@AllowAnonymous()
+@UseGuards(RoleGuard)
+@Roles('teacher')
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 

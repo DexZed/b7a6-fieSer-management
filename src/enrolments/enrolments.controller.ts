@@ -1,10 +1,19 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { EnrolmentsService } from './enrolments.service.js';
-import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 import { CreateEnrollmentDto, JoinEnrollmentDto } from './dto/enrolment.dto.js';
+import { RoleGuard } from '../common/guard/role.guard.js';
+import { Roles } from '../common/guard/roles.decorator.js';
 
 @Controller('enrolments')
-@AllowAnonymous()
+@UseGuards(RoleGuard)
+@Roles('student')
 export class EnrolmentsController {
   constructor(private readonly enrolmentsService: EnrolmentsService) {}
 

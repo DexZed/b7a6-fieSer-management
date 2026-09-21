@@ -6,12 +6,15 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { DepartmentsService } from './departments.service.js';
-import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
+import { RoleGuard } from '../common/guard/role.guard.js';
+import { Roles } from '../common/guard/roles.decorator.js';
 
 @Controller('departments')
-@AllowAnonymous()
+@UseGuards(RoleGuard)
+@Roles('admin')
 export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
 

@@ -1,18 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service.js';
-import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
+import { RoleGuard } from '../common/guard/role.guard.js';
+import { Roles } from '../common/guard/roles.decorator.js';
 
 @Controller('users')
-@AllowAnonymous()
+@UseGuards(RoleGuard)
+@Roles('admin', 'teacher')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
