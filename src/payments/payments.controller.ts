@@ -1,14 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Res, UseGuards } from '@nestjs/common';
 import { PaymentsService } from './payments.service.js';
 import { Body, Get, Post, Query } from '@nestjs/common';
-import {
-  AllowAnonymous,
-  Session,
-  type UserSession,
-} from '@thallesp/nestjs-better-auth';
-
+import { Session, type UserSession } from '@thallesp/nestjs-better-auth';
+import { RoleGuard } from '../common/guard/role.guard.js';
+import { Roles } from '../common/guard/roles.decorator.js';
+import type { Response as ExpressResponse } from 'express';
 @Controller('payments')
-@AllowAnonymous()
+@UseGuards(RoleGuard)
+@Roles('student')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 

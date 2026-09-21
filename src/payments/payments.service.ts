@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
 import { prisma } from '../lib/prisma.js';
 import { PaymentStatus } from '../generated/prisma/enums.js';
+import type { Response as ExpressResponse } from 'express';
 @Injectable()
 export class PaymentsService {
   private stripe: Stripe;
@@ -29,9 +30,9 @@ export class PaymentsService {
       },
     });
 
-    if (existingEnrollment) {
-      throw new ConflictException('You are already enrolled in this class');
-    }
+    // if (existingEnrollment) {
+    //   throw new ConflictException('You are already enrolled in this class');
+    // }
 
     const classItem = await prisma.class.findUnique({
       where: { id: classId },
@@ -70,8 +71,8 @@ export class PaymentsService {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.FRONTEND_URL}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.FRONTEND_URL}/payment/cancel`,
+      success_url: `${process.env.APP_URL}/payment/success`,
+      cancel_url: `${process.env.APP_URL}/payment/cancel`,
       metadata: {
         userId,
         classId: classId.toString(),
@@ -88,9 +89,7 @@ export class PaymentsService {
     return { url: session.url };
   }
 
-  // 2. Verify Session & Fulfill Order (Called by Frontend on success page)
   async verifyAndFulfillSession(userId: string, sessionId: string) {
-    // Retrieve session directly from Stripe to verify actual payment status
     const session = await this.stripe.checkout.sessions.retrieve(sessionId);
 
     if (!session) {
@@ -145,4 +144,49 @@ export class PaymentsService {
       message: 'Payment verified and enrollment successful',
     };
   }
+
+  // async successPage(userId: string, res: ExpressResponse) {
+  //   const getDetails = await prisma.user.findUnique({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     include: {
+  //       payments: {
+  //         include: {
+  //           class: {
+  //             select: {
+  //               name: true,
+  //               description: true,
+  //               schedules: true,
+  //             },
+  //           },
+  //         },
+  //         select: {
+  //           stripePaymentIntentId: true,
+  //           status: true,
+  //           amount: true,
+  //         },
+  //         orderBy: {
+  //           createdAt: 'desc',
+  //         },
+  //         take: 1,
+  //       },
+  //     },
+  //   });
+
+  //   return res.render('payments/success', {
+  //     transactionId: getDetails?.payments[0]?.stripeCheckoutSessionId,
+  //     amount: getDetails?.payments[0]?.amount,
+  //     className: getDetails?.payments[0]?.class?.name,
+  //     classDescription: getDetails?.payments[0]?.class?.description,
+  //     classDay: 'Monday - Friday',
+  //     classStart: '9:00 AM',
+  //     classEnd: '5:00 PM',
+  //   });
+  // }
+  // async cancelPage(userId: string, res: ExpressResponse) {
+  //   return res.render('payments/cancel', {
+  //     message: 'Payment cancelled',
+  //   });
+  // }
 }

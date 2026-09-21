@@ -14,12 +14,7 @@ async function bootstrap() {
     cors: true,
   });
   app.setGlobalPrefix('api');
-
-  app.setLocal('layout', 'layouts/app');
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('hbs');
-
   const httpAdapter = app.get(HttpAdapterHost);
   app.useGlobalFilters(new CatchEverythingFilter(httpAdapter));
   app.useGlobalInterceptors(new TransformInterceptor());
