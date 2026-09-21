@@ -7,12 +7,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @AllowAnonymous()
-  @Get()
-  root(@Res() res: ExpressResponse) {
-    return res.render('index', { message: 'Hello world!' });
-  }
   @Get('/test')
   test() {
-    return 'hello world';
+    return { data: 'hello world' };
   }
 }
