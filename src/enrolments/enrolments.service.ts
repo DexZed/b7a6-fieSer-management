@@ -65,6 +65,7 @@ export class EnrolmentsService {
 
       return await this.getEnrollmentDetails(created.id);
     } catch (error) {
+      console.error('Failed to create enrollment:', error);
       throw new InternalServerErrorException('Failed to create enrollment');
     }
   }
@@ -103,6 +104,7 @@ export class EnrolmentsService {
 
       return await this.getEnrollmentDetails(created.id);
     } catch (error) {
+      console.error('Failed to join class:', error);
       throw new InternalServerErrorException('Failed to join class');
     }
   }

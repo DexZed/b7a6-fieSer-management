@@ -33,6 +33,7 @@ export class StatsService {
         classes: classesCount,
       };
     } catch (error) {
+      console.error('Error fetching overview stats', error);
       throw new InternalServerErrorException('Failed to fetch overview stats');
     }
   }
@@ -65,6 +66,7 @@ export class StatsService {
         latestTeachers,
       };
     } catch (error) {
+      console.error('Error fetching latest stats', error);
       throw new InternalServerErrorException('Failed to fetch latest stats');
     }
   }
@@ -123,6 +125,7 @@ export class StatsService {
         classesBySubject,
       };
     } catch (error) {
+      console.error('Error fetching chart stats', error);
       throw new InternalServerErrorException('Failed to fetch chart stats');
     }
   }

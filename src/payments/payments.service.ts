@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,7 +7,6 @@ import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
 import { prisma } from '../lib/prisma.js';
 import { PaymentStatus } from '../generated/prisma/enums.js';
-import type { Response as ExpressResponse } from 'express';
 @Injectable()
 export class PaymentsService {
   private stripe: Stripe;
@@ -21,14 +19,14 @@ export class PaymentsService {
   // 1. Create Checkout Session
   async createCheckoutSession(userId: string, classId: number) {
     // Check if user is already enrolled
-    const existingEnrollment = await prisma.enrollment.findUnique({
-      where: {
-        studentId_classId: {
-          studentId: userId,
-          classId: classId,
-        },
-      },
-    });
+    // const existingEnrollment = await prisma.enrollment.findUnique({
+    //   where: {
+    //     studentId_classId: {
+    //       studentId: userId,
+    //       classId: classId,
+    //     },
+    //   },
+    // });
 
     // if (existingEnrollment) {
     //   throw new ConflictException('You are already enrolled in this class');

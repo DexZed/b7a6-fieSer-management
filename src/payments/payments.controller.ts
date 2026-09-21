@@ -1,10 +1,9 @@
-import { Controller, Res, UseGuards } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 import { PaymentsService } from './payments.service.js';
 import { Body, Get, Post, Query } from '@nestjs/common';
 import { Session, type UserSession } from '@thallesp/nestjs-better-auth';
 import { RoleGuard } from '../common/guard/role.guard.js';
 import { Roles } from '../common/guard/roles.decorator.js';
-import type { Response as ExpressResponse } from 'express';
 @Controller('payments')
 @UseGuards(RoleGuard)
 @Roles('student')
