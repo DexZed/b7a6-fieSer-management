@@ -13,7 +13,7 @@ export class PaymentsService {
   private stripe: Stripe;
   constructor(private configService: ConfigService) {
     this.stripe = new Stripe(
-      this.configService.get<string>('STRIPE_SECRET_KEY')!,
+      this.configService.get<string>('STRIPE_API_SECRET')!,
     );
   }
 

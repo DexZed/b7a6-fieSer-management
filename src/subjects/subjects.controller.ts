@@ -45,22 +45,22 @@ export class SubjectsController {
     return this.subjectsService.findOne(Number(id));
   }
 
-  // @Get(':id/classes')
-  // async findClasses(
-  //   @Param('id') id: string,
-  //   @Query('page') page?: number,
-  //   @Query('limit') limit?: number,
-  // ) {
-  //   return this.subjectsService.findClasses(Number(id), page, limit);
-  // }
+  @Get(':id/classes')
+  async findClasses(
+    @Param('id') id: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.subjectsService.findClasses(Number(id), page, limit);
+  }
 
-  // @Get(':id/users')
-  // async findUsers(
-  //   @Param('id') id: string,
-  //   @Query('role') role: string,
-  //   @Query('page') page?: number,
-  //   @Query('limit') limit?: number,
-  // ) {
-  //   return this.subjectsService.findUsers(Number(id), role, page, limit);
-  // }
+  @Get(':id/users')
+  async findUsers(
+    @Param('id') id: string,
+    @Query('role') role: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.subjectsService.findUsers(Number(id), role, page, limit);
+  }
 }
