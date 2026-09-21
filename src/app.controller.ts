@@ -11,4 +11,8 @@ export class AppController {
   root(@Res() res: ExpressResponse) {
     return res.render('index', { message: 'Hello world!' });
   }
+  @Get('/test')
+  test() {
+    return 'hello world';
+  }
 }
