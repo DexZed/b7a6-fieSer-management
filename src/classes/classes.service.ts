@@ -73,7 +73,7 @@ export class ClassesService {
       data: {
         ...dto,
         inviteCode,
-        schedules: [], // matches default empty array if JSON/List
+        schedules: (dto.schedules ?? []) as string[], // matches default empty array if JSON/List
       },
       select: { id: true },
     });
