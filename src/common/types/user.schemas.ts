@@ -35,7 +35,6 @@ export class UserResponse extends createZodDto(
     data: UserSchema,
   }),
 ) {}
-export class PaginationResponse extends createZodDto(PaginationSchema) {}
 
 export class UsersDepartmentsResponse extends createZodDto(
   z.object({
@@ -70,3 +69,80 @@ export class UsersSubjectsResponse extends createZodDto(
     pagination: PaginationSchema,
   }),
 ) {}
+
+export const ClassStatusSchema = z.enum(['active', 'inactive', 'archived']);
+export const PaymentStatusSchema = z.enum([
+  'pending',
+  'succeeded',
+  'failed',
+  'refunded',
+]);
+
+const TimestampsSchema = z.object({
+  createdAt: dateTime(),
+  updatedAt: dateTime(),
+});
+
+const BaseResourceSchema = z
+  .object({
+    id: z.number(),
+    code: z.string(),
+    name: z.string(),
+    description: z.string().nullable(),
+  })
+  .merge(TimestampsSchema);
+
+export const createPaginatedSchema = <T extends z.ZodType>(itemSchema: T) =>
+  z.object({
+    data: z.array(itemSchema),
+    pagination: PaginationSchema,
+  });
+
+export const createResponseSchema = <T extends z.ZodType>(itemSchema: T) =>
+  z.object({
+    data: itemSchema,
+  });
+
+export const DepartmentSchema = BaseResourceSchema;
+
+export const SubjectSchema = BaseResourceSchema.extend({
+  departmentId: z.number(),
+  department: DepartmentSchema.optional(),
+});
+
+export const ClassSchema = TimestampsSchema.extend({
+  id: z.number(),
+  subjectId: z.number(),
+  teacherId: z.string(),
+  inviteCode: z.string(),
+  name: z.string(),
+  price: z.number(),
+  currency: z.string(),
+  bannerCldPubId: z.string().nullable(),
+  bannerUrl: z.string().nullable(),
+  capacity: z.number(),
+  description: z.string().nullable(),
+  status: ClassStatusSchema,
+  schedules: z.any(),
+  subject: SubjectSchema.optional(),
+});
+
+export const PaymentSchema = TimestampsSchema.extend({
+  id: z.number(),
+  userId: z.string(),
+  classId: z.number(),
+  amount: z.number(),
+  currency: z.string(),
+  status: PaymentStatusSchema,
+  stripePaymentIntentId: z.string().nullable(),
+  stripeCheckoutSessionId: z.string().nullable(),
+});
+
+export const EnrollmentSchema = TimestampsSchema.extend({
+  id: z.number(),
+  studentId: z.string(),
+  classId: z.number(),
+  paymentId: z.number().nullable(),
+});
+
+export class PaginationResponse extends createZodDto(PaginationSchema) {}

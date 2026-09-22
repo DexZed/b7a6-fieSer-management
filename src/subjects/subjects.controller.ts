@@ -12,14 +12,25 @@ import {
 import { SubjectsService } from './subjects.service.js';
 import { RoleGuard } from '../common/guard/role.guard.js';
 import { Roles } from '../common/guard/roles.decorator.js';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ZodResponse } from 'nestjs-zod';
+import {
+  SubjectBody,
+  SubjectResponse,
+  SubjectsResponse,
+  SubjetsDetailsResponse,
+} from '../common/types/subjects.schema.js';
 
 @Controller('subjects')
 @UseGuards(RoleGuard)
 @Roles('teacher')
+@ApiTags('Subjects')
 export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
   @Get()
+  @ZodResponse({ type: SubjectsResponse })
+  @ApiResponse({ summary: 'Lists all subjects' })
   async findAll(
     @Query('search') search?: string,
     @Query('department') department?: string,
@@ -31,23 +42,22 @@ export class SubjectsController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
+  @ZodResponse({ type: SubjectResponse })
+  @ApiResponse({ summary: 'Creates a new subject' })
   async create(
     @Body()
-    body: {
-      departmentId: number;
-      name: string;
-      code: string;
-      description?: string;
-    },
+    body: SubjectBody,
   ) {
     return this.subjectsService.create(body);
   }
-
+  @ZodResponse({ type: SubjetsDetailsResponse })
+  @ApiResponse({ summary: 'Returns a specific subject details with counts' })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.subjectsService.findOne(Number(id));
   }
 
+  @ApiResponse({ summary: 'Returns a specific subject classes with counts' })
   @Get(':id/classes')
   async findClasses(
     @Param('id') id: string,
@@ -58,6 +68,7 @@ export class SubjectsController {
   }
 
   @Get(':id/users')
+  @ApiResponse({ summary: 'Returns Users per subject' })
   async findUsers(
     @Param('id') id: string,
     @Query('role') role: string,

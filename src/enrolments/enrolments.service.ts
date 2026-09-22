@@ -4,8 +4,12 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateEnrollmentDto, JoinEnrollmentDto } from './dto/enrolment.dto.js';
+
 import { prisma } from '../lib/prisma.js';
+import {
+  CreateEnrollmentDto,
+  JoinEnrollmentDto,
+} from '../common/types/enrolments.schema.js';
 
 @Injectable()
 export class EnrolmentsService {
