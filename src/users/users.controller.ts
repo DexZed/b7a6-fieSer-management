@@ -9,7 +9,7 @@ import {
   UserResponse,
   UsersDepartmentsResponse,
   UsersSubjectsResponse,
-} from '../common/types/typeDefs.js';
+} from '../common/types/user.schemas.js';
 
 @Controller('users')
 @UseGuards(RoleGuard)

@@ -1,5 +1,6 @@
 import { createZodDto } from 'nestjs-zod';
 import z from 'zod';
+import { dateTime } from '../../lib/zod.date.parser.js';
 
 export const UserSchema = z.object({
   role: z.string(),
@@ -69,17 +70,3 @@ export class UsersSubjectsResponse extends createZodDto(
     pagination: PaginationSchema,
   }),
 ) {}
-
-function overrideJSONSchema<T>(
-  parser: z.ZodType<T>,
-  customJSONSchema: unknown,
-): z.ZodType<T> {
-  parser._zod.toJSONSchema = () => customJSONSchema;
-  return parser;
-}
-export function dateTime(): z.ZodType<Date> {
-  return overrideJSONSchema(
-    z.union([z.date(), z.iso.datetime().pipe(z.coerce.date())]),
-    z.toJSONSchema(z.iso.datetime()),
-  );
-}
