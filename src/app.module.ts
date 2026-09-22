@@ -12,8 +12,19 @@ import { DepartmentsModule } from './departments/departments.module.js';
 import { EnrolmentsModule } from './enrolments/enrolments.module.js';
 import { StatsModule } from './stats/stats.module.js';
 import { PaymentsModule } from './payments/payments.module.js';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api/{*path}'],
+    }),
     AuthModule.forRoot({ auth }),
     SubjectsModule,
     ConfigModule.forRoot({
@@ -28,6 +39,16 @@ import { PaymentsModule } from './payments/payments.module.js';
     PaymentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_PIPE,
+      useClass: ZodValidationPipe,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ZodSerializerInterceptor,
+    },
+  ],
 })
 export class AppModule {}

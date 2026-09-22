@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Prisma } from '../../generated/prisma/client.js';
+import { ZodError } from 'zod';
 
 @Catch()
 export class CatchEverythingFilter implements ExceptionFilter {
@@ -40,13 +41,6 @@ export class CatchEverythingFilter implements ExceptionFilter {
             : exception.message,
         cause: exception.cause,
       };
-    } else if (exception instanceof Error) {
-      httpStatus = HttpStatus.BAD_REQUEST;
-      message = {
-        type: 'Error',
-        error: exception.message,
-        cause: exception.cause,
-      };
     } else if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       httpStatus = HttpStatus.BAD_REQUEST;
       message = {
@@ -54,6 +48,20 @@ export class CatchEverythingFilter implements ExceptionFilter {
         meta: exception.meta,
         code: exception.code,
         message: exception.message,
+        cause: exception.cause,
+      };
+    } else if (exception instanceof ZodError) {
+      httpStatus = HttpStatus.BAD_REQUEST;
+      message = {
+        type: 'ZodError',
+        error: exception.name,
+        cause: exception.cause,
+      };
+    } else if (exception instanceof Error) {
+      httpStatus = HttpStatus.BAD_REQUEST;
+      message = {
+        type: 'Error',
+        error: exception.message,
         cause: exception.cause,
       };
     } else {
