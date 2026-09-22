@@ -8,7 +8,7 @@ export const auth = betterAuth({
     provider: 'postgresql',
   }),
   baseURL: {
-    allowedHosts: ['http://localhost:3000', '*.vercel.app'],
+    allowedHosts: ['http://localhost:3000', '*.vercel.app', '*.onrender.com'],
     protocol: process.env.NODE_ENV! === 'development' ? 'http' : 'https',
   },
   emailAndPassword: {
@@ -44,6 +44,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     'http://localhost:3000',
     '*.vercel.app',
+    '*.onrender.com',
     'chrome-extension://',
     'vscode-webview://',
   ],
