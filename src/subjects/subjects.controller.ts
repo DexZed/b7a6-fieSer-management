@@ -29,7 +29,7 @@ export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
   @Get()
-  @ZodResponse({ type: SubjectsResponse })
+  // @ZodResponse({ type: SubjectsResponse })
   @ApiResponse({ summary: 'Lists all subjects' })
   async findAll(
     @Query('search') search?: string,
@@ -42,7 +42,7 @@ export class SubjectsController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ZodResponse({ type: SubjectResponse })
+  // @ZodResponse({ type: SubjectResponse })
   @ApiResponse({ summary: 'Creates a new subject' })
   async create(
     @Body()
@@ -50,7 +50,7 @@ export class SubjectsController {
   ) {
     return this.subjectsService.create(body);
   }
-  @ZodResponse({ type: SubjetsDetailsResponse })
+  // @ZodResponse({ type: SubjetsDetailsResponse })
   @ApiResponse({ summary: 'Returns a specific subject details with counts' })
   @Get(':id')
   async findOne(@Param('id') id: string) {

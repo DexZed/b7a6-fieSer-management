@@ -19,7 +19,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @ZodResponse({ type: PaginatedUsersResponse })
+  // @ZodResponse({ type: PaginatedUsersResponse })
   @ApiResponse({ summary: 'Get All Users' })
   async findAll(
     @Query('search') search?: string,
@@ -36,14 +36,14 @@ export class UsersController {
   }
 
   @Get(':id')
-  @ZodResponse({ type: UserResponse })
+  // @ZodResponse({ type: UserResponse })
   @ApiResponse({ summary: 'Get user by id' })
   async findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @Get(':id/departments')
-  @ZodResponse({ type: UsersDepartmentsResponse })
+  // @ZodResponse({ type: UsersDepartmentsResponse })
   @ApiResponse({ summary: 'Get user departments' })
   async findUserDepartments(
     @Param('id') id: string,
@@ -58,7 +58,7 @@ export class UsersController {
   }
 
   @Get(':id/subjects')
-  @ZodResponse({ type: UsersSubjectsResponse })
+  // @ZodResponse({ type: UsersSubjectsResponse })
   @ApiResponse({ summary: 'Get user subjects' })
   async findUserSubjects(
     @Param('id') id: string,

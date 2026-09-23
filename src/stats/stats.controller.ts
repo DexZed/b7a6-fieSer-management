@@ -23,7 +23,7 @@ export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 
   @Get('overview')
-  @ZodResponse({ type: OverviewSchema })
+  // @ZodResponse({ type: OverviewSchema })
   @ApiResponse({ summary: 'Get overview of stats' })
   async getOverview() {
     const data = await this.statsService.getOverview();
@@ -40,7 +40,7 @@ export class StatsController {
   }
 
   @Get('charts')
-  @ZodResponse({ type: ChartSchema })
+  // @ZodResponse({ type: ChartSchema })
   @ApiResponse({ summary: 'Get charts data' })
   async getCharts() {
     const data = await this.statsService.getCharts();

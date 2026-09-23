@@ -21,7 +21,7 @@ export class PaymentsController {
   // POST /payments/checkout
 
   @Post('checkout')
-  @ZodResponse({ type: CheckoutSessionSchema })
+  // @ZodResponse({ type: CheckoutSessionSchema })
   @ApiResponse({ summary: 'Create a new checkout session' })
   async createCheckout(
     @Session() session: UserSession,
@@ -35,7 +35,7 @@ export class PaymentsController {
   // GET /payments/verify?sessionId=cs_test_...
 
   @Get('verify')
-  @ZodResponse({ type: VerifySessionSchema })
+  // @ZodResponse({ type: VerifySessionSchema })
   @ApiResponse({ summary: 'Verify and fulfill payment session' })
   async verifyPayment(
     @Session() session: UserSession,

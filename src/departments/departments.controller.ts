@@ -30,7 +30,7 @@ export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
 
   @Get()
-  @ZodResponse({ type: DepartmentsResponse })
+  // @ZodResponse({ type: DepartmentsResponse })
   @ApiResponse({ summary: 'Get all departments with search and pagination' })
   async findAll(
     @Query('search') search?: string,
@@ -41,7 +41,7 @@ export class DepartmentsController {
   }
 
   @Post()
-  @ZodResponse({ type: CreateDepartmentResponse })
+  // @ZodResponse({ type: CreateDepartmentResponse })
   @ApiResponse({ summary: 'Create a new department' })
   async create(
     @Body()
@@ -55,14 +55,14 @@ export class DepartmentsController {
   }
 
   @Get(':id')
-  @ZodResponse({ type: DepartmentDetailsResponse })
+  // @ZodResponse({ type: DepartmentDetailsResponse })
   @ApiResponse({ summary: 'Get department details by ID with statistics' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.departmentsService.findOne(id);
   }
 
   @Get(':id/subjects')
-  @ZodResponse({ type: DepartmentSubjectsResponse })
+  // @ZodResponse({ type: DepartmentSubjectsResponse })
   @ApiResponse({ summary: 'List subjects in a department with pagination' })
   async findSubjects(
     @Param('id', ParseIntPipe) id: number,
@@ -73,7 +73,7 @@ export class DepartmentsController {
   }
 
   @Get(':id/classes')
-  @ZodResponse({ type: DepartmentClassesResponse })
+  // @ZodResponse({ type: DepartmentClassesResponse })
   @ApiResponse({ summary: 'List classes in a department with pagination' })
   async findClasses(
     @Param('id', ParseIntPipe) id: number,
@@ -84,7 +84,7 @@ export class DepartmentsController {
   }
 
   @Get(':id/users')
-  @ZodResponse({ type: DepartmentUsersResponse })
+  // @ZodResponse({ type: DepartmentUsersResponse })
   @ApiResponse({
     summary: 'List users in a department by role with pagination',
   })
