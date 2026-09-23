@@ -193,7 +193,7 @@ export class DepartmentsService {
       throw new BadRequestException('Invalid department id');
     }
 
-    if (role !== 'teacher' && role !== 'student') {
+    if (role !== 'admin' && role !== 'teacher' && role !== 'student') {
       throw new BadRequestException('Invalid role');
     }
 
