@@ -24,7 +24,7 @@ import {
 
 @Controller('departments')
 @UseGuards(RoleGuard)
-@Roles('admin')
+@Roles('teacher')
 @ApiTags('Departments')
 export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
