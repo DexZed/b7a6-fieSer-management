@@ -1,0 +1,1376 @@
+{
+  "info": {
+    "_postman_id": "7344deee-42ad-4875-9341-adb652241cb7",
+    "name": "Classroom",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40537462",
+    "_collection_link": "https://go.postman.co/collection/40537462-7344deee-42ad-4875-9341-adb652241cb7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Subjects ( Teacher )",
+      "item": [
+        {
+          "name": "Get all subjects with optional search, filtering and pagination",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/subjects?limit=2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Programming Fundamentals",
+                  "description": "General search",
+                  "disabled": true
+                },
+                {
+                  "key": "department",
+                  "value": "Mathematics",
+                  "description": "Deparment name",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2",
+                  "description": "No. of items"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one subject",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/subjects/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subject per classes",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/subjects/:id/classes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects",
+                ":id",
+                "classes"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subject per users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/subjects/:id/users?role=teacher",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects",
+                ":id",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "teacher"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add a Subject",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n     \"code\": \"CS105\",\r\n      \"name\": \"Programming Fundamentals E\",\r\n      \"description\": \"Functional Programming\",\r\n      \"departmentId\": 1\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Email sign Up",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"test3\",\r\n    \"email\": \"test3@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"role\":\"teacher\",\r\n    \"rememberMe\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/sign-up/email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "sign-up",
+                "email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Email Sign In",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();\r\nif (res.token) {\r\n    pm.environment.set(\"auth_token\", res.token);\r\n} else {\r\n    console.log(\"No access token found\");\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"email\": \"admin@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"rememberMe\": true\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/sign-in/email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "sign-in",
+                "email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Out",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/sign-out",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "sign-out"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Departments ( Teacher )",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"code\": \"MAT\",\r\n      \"name\": \"Mathematics\",\r\n      \"description\": \"School of Mathematics and Engineering\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/departments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "departments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "All with options",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/departments?limit=2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "departments"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "bio",
+                  "description": "General Search",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find one",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/departments/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "departments",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find subjects per department",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/departments/:id/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "departments",
+                ":id",
+                "subjects"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find classes per department",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/departments/:id/classes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "departments",
+                ":id",
+                "classes"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find users per department",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/departments/:id/users?role=teacher",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "departments",
+                ":id",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "teacher"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Classes ( Teacher )",
+      "item": [
+        {
+          "name": "All with classes with options",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/classes?subject=Intro to Programming",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "classes"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Intro to Programming",
+                  "description": "General search",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "2",
+                  "description": "Page no",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "3",
+                  "description": "No of results",
+                  "disabled": true
+                },
+                {
+                  "key": "teacher",
+                  "value": "teacher",
+                  "description": "Teacher name",
+                  "disabled": true
+                },
+                {
+                  "key": "subject",
+                  "value": "Intro to Programming",
+                  "description": "Subjects name"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get particular",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/classes/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "classes",
+                ":id"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get particular per users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/classes/:id/users?role=student",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "classes",
+                ":id",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "role",
+                  "value": "student"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add a class",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Programming Advanced - Section D\",\r\n      \"description\": \"Advance Programming Concepts 5\",\r\n      \"capacity\": 30,\r\n      \"status\": \"active\",\r\n\r\n    \"teacherId\": \"xssWRhQSxTdVc1Mew9KVvFaUhBLaavST\",\r\n    \"subjectId\":1,\r\n    \"price\":5000,\r\n    \"currency\":\"BDT\",\r\n    \"schedules\": [\r\n        {\r\n            \"dayOfWeek\": \"Monday\",\r\n            \"startTime\": \"09:00\",\r\n            \"endTime\": \"10:30\",\r\n            \"location\": \"Room 402\",\r\n            \"roomUrl\": \"https://meet.google.com/abc-defg-hij\"\r\n        },\r\n        {\r\n            \"dayOfWeek\": \"Wednesday\",\r\n            \"startTime\": \"09:00\",\r\n            \"endTime\": \"10:30\",\r\n            \"location\": \"Room 402\",\r\n            \"roomUrl\": \"https://meet.google.com/abc-defg-hij\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/classes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "classes"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Enrolments ( Student )",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"studentId\":\"m8p0eWBFyBQv5vrBcz4m1UGVxr59XYWB\",\r\n    \"classId\":4\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/enrolments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "enrolments"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Join using invite code",
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"studentId\":\"m8p0eWBFyBQv5vrBcz4m1UGVxr59XYWB\",\r\n    \"inviteCode\":\"e8ip15i\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/enrolments/join",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "enrolments",
+                "join"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments ( Student )",
+      "item": [
+        {
+          "name": "Class payment checkout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"classId\":3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payments/checkout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "checkout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/payments/verify?sessionId=cs_test_a1sJk6VyhVA1s7n62HQpnASS6bN2dwvIkPrUM5ZGzM8mAeKnXAeV3crqhe",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "verify"
+              ],
+              "query": [
+                {
+                  "key": "sessionId",
+                  "value": "cs_test_a1sJk6VyhVA1s7n62HQpnASS6bN2dwvIkPrUM5ZGzM8mAeKnXAeV3crqhe"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stats ( Admin )",
+      "item": [
+        {
+          "name": "Overview",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/stats/overview",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                "overview"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Latest",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/stats/latest",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                "latest"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Chart data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/stats/charts",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                "charts"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users ( Admin, Teacher )",
+      "item": [
+        {
+          "name": "Get all Users with optional search, filtering and pagination Copy",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "admin",
+                  "description": "General search",
+                  "disabled": true
+                },
+                {
+                  "key": "role",
+                  "value": "admin",
+                  "description": "User role",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "3",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "1",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Singler User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "Ojal6yKq3sPQ4UAYNebNhVo5g0lvMKqD"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User per department",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id/departments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id",
+                "departments"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1u5Wcm74xPpVSTtPouHWcvL6XeODlH2E"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User per subject",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{better_auth_origin}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id",
+                "subjects"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "m8p0eWBFyBQv5vrBcz4m1UGVxr59XYWB"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/test",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "test"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "better_auth_origin",
+      "value": ""
+    },
+    {
+      "key": "extra_var",
+      "value": ""
+    },
+    {
+      "key": "extra_var2",
+      "value": ""
+    }
+  ]
+}
