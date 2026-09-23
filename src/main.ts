@@ -22,10 +22,10 @@ async function bootstrap() {
   app.use(helmet());
 
   const config = new DocumentBuilder()
-    .setTitle('Classroom Management')
-    .setDescription('Classroom Management System')
+    .setTitle('University Dashboard Management')
+    .setDescription('University Dashboard Management API')
     .setVersion('1.0')
-    .addTag('classroom')
+    .addTag('university-dashboard')
     .build();
   const rawDocument = SwaggerModule.createDocument(app, config);
   const document = cleanupOpenApiDoc(rawDocument);
