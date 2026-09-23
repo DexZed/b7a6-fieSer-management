@@ -1,29 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<body>
-  <button id="google">Sign in with Google</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>University Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <section class="hero is-fullheight">
+      <!-- Hero head: will stick at the top -->
 
-  <script>
-    document.getElementById("google").onclick = async () => {
-      const response = await fetch("/api/auth/sign-in/social", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          provider: "google"
-        })
-      });
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div
+          class="container has-text-centered"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div
+            class="card"
+            style="
+              width: 800px;
+              height: 600px;
+              padding: 20px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <header class="card-header">
+              <p class="card-header-title">Google Login</p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Sign In / Sign Up with Google
+                <br />
+              </div>
+            </div>
+            <footer class="card-footer">
+              <button
+                class="card-footer-item button is-primary is-outlined"
+                id="google"
+              >
+                Sign in with Google
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
 
-      const data = await response.json();
+      <!-- Hero footer: will stick at the bottom -->
+    </section>
 
-      console.log(data);
+    <script>
+      document.getElementById('google').onclick = async () => {
+        const response = await fetch('/api/auth/sign-in/social', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            provider: 'google',
+          }),
+        });
 
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    };
-  </script>
-</body>
+        const data = await response.json();
+
+        console.log(data);
+
+        if (data.url) {
+          window.location.href = data.url;
+        }
+      };
+    </script>
+  </body>
 </html>

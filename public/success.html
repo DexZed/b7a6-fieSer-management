@@ -1,30 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Successfully Payment</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>University Management</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@5"
       rel="stylesheet"
-      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <section class="min-h-screen flex justify-center items-center">
-      <div className="card w-96 bg-base-100 card-xl shadow-sm">
-        <div className="card-body">
-          <h2 className="card-title">Payment Successful</h2>
-          <p>
-            Your payment has been processed successfully. You are now enrolled
-            in the class.
-          </p>
-          <div className="justify-end card-actions">
-            <button className="btn btn-primary" disabled>Go Home</button>
+    <section class="hero is-fullheight">
+      <!-- Hero head: will stick at the top -->
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div
+          class="container has-text-centered"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div
+            class="card"
+            style="
+              width: 800px;
+              height: 600px;
+              padding: 20px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <header class="card-header">
+              <p class="card-header-title">Success!</p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Payment is successfull. You are now enrolled.
+                <br />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Hero footer: will stick at the bottom -->
     </section>
   </body>
 </html>
