@@ -1,20 +1,22 @@
-document.getElementById('google').onclick = async () => {
-        const response = await fetch('/api/auth/sign-in/social', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            provider: 'google',
-          }),
-        });
+const googleButton = document.getElementById('google');
 
-        const data = await response.json();
+googleButton.addEventListener('click', async () => {
+  const response = await fetch('/api/auth/sign-in/social', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      provider: 'google',
+    }),
+  });
 
-        console.log(data);
+  const data = await response.json();
 
-        if (data.url) {
-          window.location.href = data.url;
-        }
-      };
+  console.log(data);
+
+  if (data.url) {
+    window.location.href = data.url;
+  }
+});
