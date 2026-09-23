@@ -184,7 +184,7 @@ export class SubjectsService {
       if (role === 'teacher') {
         const where = {
           role: 'teacher',
-          classesTaught: {
+          classes: {
             some: { subjectId },
           },
         };
