@@ -9,7 +9,7 @@ export const auth = betterAuth({
   }),
   baseURL: {
     allowedHosts: ['http://localhost:3000', '*.vercel.app', '*.onrender.com'],
-    protocol: process.env.NODE_ENV! === 'development' ? 'http' : 'https',
+    protocol: process.env.NODE_ENV! === 'development' ? 'https' : 'http',
   },
   emailAndPassword: {
     enabled: true,
