@@ -4,6 +4,7 @@ import z from 'zod';
 export class CheckoutSessionSchema extends createZodDto(
   z.object({
     url: z.string().nullable(),
+    stripeId: z.string().nullable(),
   }),
 ) {}
 

@@ -84,7 +84,10 @@ export class PaymentsService {
       data: { stripeCheckoutSessionId: session.id },
     });
 
-    return { url: session.url };
+    return {
+      url: session.url,
+      stripeId: session.id,
+    };
   }
 
   async verifyAndFulfillSession(userId: string, sessionId: string) {
