@@ -28,7 +28,7 @@ import { Roles } from '../common/guard/roles.decorator.js';
 export class ClassesController {
   constructor(private readonly classesService: ClassesService) {}
   @Get()
-  @ZodResponse({ type: ClassesResponse })
+  // @ZodResponse({ type: ClassesResponse })
   @ApiResponse({ summary: 'Get all classes with filters and pagination' })
   async findAll(
     @Query('search') search?: string,
@@ -53,7 +53,7 @@ export class ClassesController {
   }
 
   @Get(':id')
-  @ZodResponse({ type: ClassResponse })
+  // @ZodResponse({ type: ClassResponse })
   @ApiResponse({ summary: 'Get class details by ID' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.classesService.findOne(id);
