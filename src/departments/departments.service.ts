@@ -204,7 +204,7 @@ export class DepartmentsService {
     const where: any = { role };
 
     if (role === 'teacher') {
-      where.classesTaught = {
+      where.classes = {
         some: {
           subject: { departmentId: id },
         },
