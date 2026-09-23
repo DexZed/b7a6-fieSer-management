@@ -69,10 +69,8 @@ export class PaymentsService {
         },
       ],
       mode: 'payment',
-      success_url:
-        'https://b7a6-fieser-management.onrender.com/payment/success.html',
-      cancel_url:
-        'https://b7a6-fieser-management.onrender.com/payment/failed.html',
+      success_url: 'https://b7a6-fieser-management.onrender.com/success.html',
+      cancel_url: 'https://b7a6-fieser-management.onrender.com/failed.html',
       metadata: {
         userId,
         classId: classId.toString(),
