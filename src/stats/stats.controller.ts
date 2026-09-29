@@ -10,10 +10,6 @@ import { RoleGuard } from '../common/guard/role.guard.js';
 import { Roles } from '../common/guard/roles.decorator.js';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodResponse } from 'nestjs-zod';
-import {
-  ChartSchema,
-  OverviewSchema,
-} from '../common/types/overview.schema.js';
 
 @ApiTags('Stats')
 @Controller('stats')

@@ -4,12 +4,6 @@ import { RoleGuard } from '../common/guard/role.guard.js';
 import { Roles } from '../common/guard/roles.decorator.js';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodResponse } from 'nestjs-zod';
-import {
-  PaginatedUsersResponse,
-  UserResponse,
-  UsersDepartmentsResponse,
-  UsersSubjectsResponse,
-} from '../common/types/user.schemas.js';
 
 @Controller('users')
 @UseGuards(RoleGuard)
@@ -19,6 +13,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+
   // @ZodResponse({ type: PaginatedUsersResponse })
   @ApiResponse({ summary: 'Get All Users' })
   async findAll(

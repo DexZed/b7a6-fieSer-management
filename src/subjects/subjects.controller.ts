@@ -14,12 +14,8 @@ import { RoleGuard } from '../common/guard/role.guard.js';
 import { Roles } from '../common/guard/roles.decorator.js';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodResponse } from 'nestjs-zod';
-import {
-  SubjectBody,
-  SubjectResponse,
-  SubjectsResponse,
-  SubjetsDetailsResponse,
-} from '../common/types/subjects.schema.js';
+import { SubjectRequest } from '../common/schema/request/classroom.request.dto.js';
+import { AllSubjectsResponse } from '../common/schema/response/classroom.response.schema.js';
 
 @Controller('subjects')
 @UseGuards(RoleGuard)
@@ -29,7 +25,7 @@ export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
   @Get()
-  // @ZodResponse({ type: SubjectsResponse })
+  // @ZodResponse({ type: AllSubjectsResponse })
   @ApiResponse({ summary: 'Lists all subjects' })
   async findAll(
     @Query('search') search?: string,
@@ -46,7 +42,7 @@ export class SubjectsController {
   @ApiResponse({ summary: 'Creates a new subject' })
   async create(
     @Body()
-    body: SubjectBody,
+    body: SubjectRequest,
   ) {
     return this.subjectsService.create(body);
   }

@@ -6,11 +6,7 @@ import { RoleGuard } from '../common/guard/role.guard.js';
 import { Roles } from '../common/guard/roles.decorator.js';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodResponse } from 'nestjs-zod';
-import {
-  ChechoutSessionBody,
-  CheckoutSessionSchema,
-  VerifySessionSchema,
-} from '../common/types/payments.schema.js';
+import { PaymentCheckoutRequest } from '../common/schema/request/classroom.request.dto.js';
 @Controller('payments')
 @UseGuards(RoleGuard)
 @Roles('student')
@@ -25,7 +21,7 @@ export class PaymentsController {
   @ApiResponse({ summary: 'Create a new checkout session' })
   async createCheckout(
     @Session() session: UserSession,
-    @Body() body: ChechoutSessionBody,
+    @Body() body: PaymentCheckoutRequest,
   ) {
     const userId = session.user?.id;
 
