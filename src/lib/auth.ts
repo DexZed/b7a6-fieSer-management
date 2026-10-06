@@ -43,8 +43,8 @@ export const auth = betterAuth({
   plugins: [openAPI()],
   trustedOrigins: [
     'http://localhost:3000',
-    '*.vercel.app',
-    '*.onrender.com',
+    'https://*.vercel.app',
+    'https://*.onrender.com',
     'chrome-extension://',
     'vscode-webview://',
   ],

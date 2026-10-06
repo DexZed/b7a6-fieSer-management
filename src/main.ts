@@ -9,9 +9,11 @@ import { AppModule } from './app/app.module.js';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bodyParser: false,
-    cors: true,
   });
-
+  app.enableCors({
+    origin: ["http://localhost:3000", "https://*.vercel.app", "https://*.onrender.com"],
+    credentials: true,
+  });
   app.setGlobalPrefix('api');
 
   const httpAdapter = app.get(HttpAdapterHost);
