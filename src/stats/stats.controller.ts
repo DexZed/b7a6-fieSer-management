@@ -26,6 +26,7 @@ export class StatsController {
     return { data };
   }
 
+  
   @Get('latest')
   @ApiResponse({ summary: 'Get latest stats' })
   async getLatest(

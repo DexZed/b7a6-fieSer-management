@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { openAPI } from 'better-auth/plugins';
+import { bearer, openAPI } from 'better-auth/plugins';
 import { prisma } from './prisma.js';
 
 export const auth = betterAuth({
@@ -8,8 +8,8 @@ export const auth = betterAuth({
     provider: 'postgresql',
   }),
   baseURL: {
-    allowedHosts: ['http://localhost:3000', '*.vercel.app', '*.onrender.com'],
-    protocol: process.env.NODE_ENV! === 'development' ? 'https' : 'http',
+    allowedHosts: ['http://localhost:3000', 'http://localhost:3001', '*.vercel.app', '*.onrender.com'],
+    protocol: process.env.NODE_ENV! === 'production' ? 'https' : 'http',
   },
   emailAndPassword: {
     enabled: true,
@@ -40,9 +40,10 @@ export const auth = betterAuth({
       joins: true,
     },
   },
-  plugins: [openAPI()],
+  plugins: [bearer(),openAPI()],
   trustedOrigins: [
     'http://localhost:3000',
+     'http://localhost:3001',
     'https://*.vercel.app',
     'https://*.onrender.com',
     'chrome-extension://',
