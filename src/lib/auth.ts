@@ -8,7 +8,7 @@ export const auth = betterAuth({
     provider: 'postgresql',
   }),
   baseURL: {
-    allowedHosts: ['http://localhost:3000', 'http://localhost:3001', '*.vercel.app', '*.onrender.com'],
+    allowedHosts: ['localhost:*', '*.vercel.app', '*.onrender.com'],
     protocol: process.env.NODE_ENV! === 'production' ? 'https' : 'http',
   },
   emailAndPassword: {
@@ -39,7 +39,12 @@ export const auth = betterAuth({
     database: {
       joins: true,
     },
+    defaultCookieAttributes: {
+      sameSite: 'none',
+      secure: true,
+    },
   },
+ 
   plugins: [bearer(),openAPI()],
   trustedOrigins: [
     'http://localhost:3000',
@@ -49,6 +54,7 @@ export const auth = betterAuth({
     'chrome-extension://',
     'vscode-webview://',
   ],
+  
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
