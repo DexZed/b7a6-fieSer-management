@@ -17,7 +17,7 @@ import { Roles } from '../common/guard/roles.decorator.js';
 
 @Controller('classes')
 @UseGuards(RoleGuard)
-@Roles('teacher')
+@Roles('teacher', 'student')
 export class ClassesController {
   constructor(private readonly classesService: ClassesService) {}
   @Get()
