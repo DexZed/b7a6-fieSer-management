@@ -42,19 +42,20 @@ export const auth = betterAuth({
     defaultCookieAttributes: {
       sameSite: 'none',
       secure: true,
+      partitioned: true,
     },
   },
- 
-  plugins: [bearer(),openAPI()],
+
+  plugins: [bearer(), openAPI()],
   trustedOrigins: [
     'http://localhost:3000',
-     'http://localhost:3001',
+    'http://localhost:3001',
     'https://*.vercel.app',
     'https://*.onrender.com',
     'chrome-extension://',
     'vscode-webview://',
   ],
-  
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
