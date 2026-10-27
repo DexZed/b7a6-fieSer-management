@@ -6,7 +6,6 @@ import {
   HttpStatus,
   UseGuards,
   Get,
-  Param,
 } from '@nestjs/common';
 import { EnrolmentsService } from './enrolments.service.js';
 import { RoleGuard } from '../common/guard/role.guard.js';
@@ -17,6 +16,7 @@ import {
   CreateEnrollmentRequest,
   JoinEnrollmentRequest,
 } from '../common/schema/request/classroom.request.dto.js';
+import { Session, type UserSession } from '@thallesp/nestjs-better-auth';
 
 @Controller('enrolments')
 @UseGuards(RoleGuard)
@@ -42,12 +42,14 @@ export class EnrolmentsController {
     return { data: enrollment };
   }
 
-  @Get('enroled/:studentId')
-  async getEnrolments(@Param('studentId') studentId: string) {
-    return await this.enrolmentsService.getEnrollmentsByStudentId(studentId);
+  @Get('enrolled')
+  async getEnrolments(@Session() session: UserSession) {
+    return await this.enrolmentsService.getEnrollmentsByStudentId(
+      session.user?.id,
+    );
   }
-  @Get('unenroled/:studentId')
-  async getUnenrolledClasses(@Param('studentId') studentId: string) {
-    return await this.enrolmentsService.getUnenrolledClasses(studentId);
+  @Get('unenrolled')
+  async getUnenrolledClasses(@Session() session: UserSession) {
+    return await this.enrolmentsService.getUnenrolledClasses(session.user?.id);
   }
 }
