@@ -120,7 +120,7 @@ export class EnrolmentsService {
       throw new NotFoundException('Student not found');
     }
 
-    return prisma.enrollment.findMany({
+    const enrolments = await prisma.enrollment.findMany({
       where: { studentId },
       include: {
         class: {
@@ -136,6 +136,7 @@ export class EnrolmentsService {
       },
       orderBy: { createdAt: 'desc' },
     });
+    return { data: enrolments };
   }
 
   /**
@@ -149,7 +150,7 @@ export class EnrolmentsService {
       throw new NotFoundException('Student not found');
     }
 
-    return prisma.class.findMany({
+    const enrolments = await prisma.class.findMany({
       where: {
         enrollments: {
           none: {
@@ -159,5 +160,6 @@ export class EnrolmentsService {
       },
       orderBy: { createdAt: 'desc' },
     });
+    return { data: enrolments };
   }
 }
