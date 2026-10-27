@@ -6,6 +6,7 @@ import {
   HttpStatus,
   UseGuards,
   Get,
+  Query,
 } from '@nestjs/common';
 import { EnrolmentsService } from './enrolments.service.js';
 import { RoleGuard } from '../common/guard/role.guard.js';
@@ -43,13 +44,31 @@ export class EnrolmentsController {
   }
 
   @Get('enrolled')
-  async getEnrolments(@Session() session: UserSession) {
+  async getEnrolments(
+    @Session() session: UserSession,
+    @Query('search') search?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
     return await this.enrolmentsService.getEnrollmentsByStudentId(
       session.user?.id,
+      search,
+      page,
+      limit,
     );
   }
   @Get('unenrolled')
-  async getUnenrolledClasses(@Session() session: UserSession) {
-    return await this.enrolmentsService.getUnenrolledClasses(session.user?.id);
+  async getUnenrolledClasses(
+    @Session() session: UserSession,
+    @Query('search') search?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return await this.enrolmentsService.getUnenrolledClasses(
+      session.user?.id,
+      search,
+      page,
+      limit,
+    );
   }
 }
