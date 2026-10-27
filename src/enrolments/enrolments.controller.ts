@@ -5,6 +5,8 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { EnrolmentsService } from './enrolments.service.js';
 import { RoleGuard } from '../common/guard/role.guard.js';
@@ -38,5 +40,14 @@ export class EnrolmentsController {
     const enrollment =
       await this.enrolmentsService.joinByInviteCode(joinEnrollmentDto);
     return { data: enrollment };
+  }
+
+  @Get('enroled/:studentId')
+  async getEnrolments(@Param('studentId') studentId: string) {
+    return await this.enrolmentsService.getEnrollmentsByStudentId(studentId);
+  }
+  @Get('unenroled/:studentId')
+  async getUnenrolledClasses(@Param('studentId') studentId: string) {
+    return await this.enrolmentsService.getUnenrolledClasses(studentId);
   }
 }

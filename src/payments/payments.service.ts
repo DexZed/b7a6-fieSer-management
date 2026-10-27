@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -19,18 +20,18 @@ export class PaymentsService {
   // 1. Create Checkout Session
   async createCheckoutSession(userId: string, classId: number) {
     // Check if user is already enrolled
-    // const existingEnrollment = await prisma.enrollment.findUnique({
-    //   where: {
-    //     studentId_classId: {
-    //       studentId: userId,
-    //       classId: classId,
-    //     },
-    //   },
-    // });
+    const existingEnrollment = await prisma.enrollment.findUnique({
+      where: {
+        studentId_classId: {
+          studentId: userId,
+          classId: classId,
+        },
+      },
+    });
 
-    // if (existingEnrollment) {
-    //   throw new ConflictException('You are already enrolled in this class');
-    // }
+    if (existingEnrollment) {
+      throw new ConflictException('You are already enrolled in this class');
+    }
 
     const classItem = await prisma.class.findUnique({
       where: { id: classId },
@@ -69,8 +70,8 @@ export class PaymentsService {
         },
       ],
       mode: 'payment',
-      success_url: 'https://b7a6-fieser-management.onrender.com/success.html',
-      cancel_url: 'https://b7a6-fieser-management.onrender.com/failed.html',
+      success_url: 'http://localhost:3000/student/payments/success?sessionId={CHECKOUT_SESSION_ID}',
+      cancel_url: 'http://localhost:3000/student/payments/failed?sessionId={CHECKOUT_SESSION_ID}',
       metadata: {
         userId,
         classId: classId.toString(),
@@ -146,48 +147,31 @@ export class PaymentsService {
     };
   }
 
-  // async successPage(userId: string, res: ExpressResponse) {
-  //   const getDetails = await prisma.user.findUnique({
-  //     where: {
-  //       id: userId,
-  //     },
-  //     include: {
-  //       payments: {
-  //         include: {
-  //           class: {
-  //             select: {
-  //               name: true,
-  //               description: true,
-  //               schedules: true,
-  //             },
-  //           },
-  //         },
-  //         select: {
-  //           stripePaymentIntentId: true,
-  //           status: true,
-  //           amount: true,
-  //         },
-  //         orderBy: {
-  //           createdAt: 'desc',
-  //         },
-  //         take: 1,
-  //       },
-  //     },
-  //   });
-
-  //   return res.render('payments/success', {
-  //     transactionId: getDetails?.payments[0]?.stripeCheckoutSessionId,
-  //     amount: getDetails?.payments[0]?.amount,
-  //     className: getDetails?.payments[0]?.class?.name,
-  //     classDescription: getDetails?.payments[0]?.class?.description,
-  //     classDay: 'Monday - Friday',
-  //     classStart: '9:00 AM',
-  //     classEnd: '5:00 PM',
-  //   });
-  // }
-  // async cancelPage(userId: string, res: ExpressResponse) {
-  //   return res.render('payments/cancel', {
-  //     message: 'Payment cancelled',
-  //   });
-  // }
+  async getPaymentHistory(studentId: string) {
+    const user = await prisma.user.findUnique({
+      where: { id: studentId },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const paymnets = await prisma.payment.findMany({
+      where: { userId: studentId },
+      include: {
+        class: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            price: true,
+            status: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+    if (paymnets.length == 0) {
+      throw new NotFoundException('No payments found');
+    }
+    return { success: true, data: paymnets };
+  }
 }

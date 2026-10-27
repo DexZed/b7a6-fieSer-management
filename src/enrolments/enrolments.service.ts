@@ -112,4 +112,52 @@ export class EnrolmentsService {
       throw new InternalServerErrorException('Failed to join class');
     }
   }
+  async getEnrollmentsByStudentId(studentId: string) {
+    const student = await prisma.user.findUnique({
+      where: { id: studentId },
+    });
+    if (!student) {
+      throw new NotFoundException('Student not found');
+    }
+
+    return prisma.enrollment.findMany({
+      where: { studentId },
+      include: {
+        class: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            price: true,
+            status: true,
+          },
+        },
+        payment: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  /**
+   * Get classes where student isnt enroled by student id
+   */
+  async getUnenrolledClasses(studentId: string) {
+    const student = await prisma.user.findUnique({
+      where: { id: studentId },
+    });
+    if (!student) {
+      throw new NotFoundException('Student not found');
+    }
+
+    return prisma.class.findMany({
+      where: {
+        enrollments: {
+          none: {
+            studentId,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }

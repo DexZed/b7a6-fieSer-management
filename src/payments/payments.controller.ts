@@ -1,4 +1,4 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Param, UseGuards } from '@nestjs/common';
 import { PaymentsService } from './payments.service.js';
 import { Body, Get, Post, Query } from '@nestjs/common';
 import { Session, type UserSession } from '@thallesp/nestjs-better-auth';
@@ -40,5 +40,13 @@ export class PaymentsController {
     const userId = session.user?.id;
 
     return this.paymentsService.verifyAndFulfillSession(userId, sessionId);
+  }
+
+  @Get('history')
+  // @ZodResponse({ type: VerifySessionSchema })
+  @ApiResponse({ summary: 'Get payment history' })
+  async getPaymentHistory(@Session() session: UserSession) {
+    const studentId = session.user?.id as string;
+    return this.paymentsService.getPaymentHistory(studentId);
   }
 }
